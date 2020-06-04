@@ -1,51 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="#0099cc"
-             tools:context=".FullscreenActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/screen_background_light"
+    tools:context=".activities.ItemSetupActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView android:id="@+id/fullscreen_content"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:keepScreenOn="true"
-              android:textColor="#33b5e5"
-              android:textStyle="bold"
-              android:textSize="50sp"
-              android:gravity="center"
-              android:text="@string/dummy_content"/>
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/app_name"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:fitsSystemWindows="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <LinearLayout android:id="@+id/fullscreen_content_controls"
-                      style="?metaButtonBarStyle"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="bottom|center_horizontal"
-                      android:background="@color/black_overlay"
-                      android:orientation="horizontal"
-                      tools:ignore="UselessParent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button android:id="@+id/dummy_button"
-                    style="?metaButtonBarButtonStyle"
-                    android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/items"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/dummy_button" android:onClick="doIt"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Filter type" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/radioButton3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chef" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/equipment" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ingredients" />
+
+                    </RadioGroup>
+
+                    <Button
+                        android:id="@+id/button2"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+" />
+
+                </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
-        <Button
-            android:text="Buttonizer"
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="?android:attr/listDivider" />
+
+        <ScrollView
+            android:layout_width="200dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. "
+                    android:visibility="visible" />
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment"
+            android:name="net.merayen.kitchentimer.fragments.ItemEditFragment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/the_buttonizer" android:onClick="doIt"/>
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </FrameLayout>
