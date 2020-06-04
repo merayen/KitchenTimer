@@ -13,6 +13,5 @@ import androidx.room.PrimaryKey
 @Entity
 data class Task(
 	@PrimaryKey val id: Int,
-	@ColumnInfo val name: String,
-	@ColumnInfo val duration: Int // TODO remove? Should the tool (chef + equipment) define the duration?
+	@ColumnInfo val name: String
 )

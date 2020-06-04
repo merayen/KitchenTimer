@@ -34,6 +34,54 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Type" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <RadioButton
+                            android:id="@+id/radioButton4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/items" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tasks" />
+                    </RadioGroup>
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,10 +140,9 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/divider"
+            android:id="@+id/divider2"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_weight="0"
             android:background="?android:attr/listDivider" />
 
         <ScrollView
@@ -117,7 +164,7 @@
         </ScrollView>
 
         <View
-            android:id="@+id/divider2"
+            android:id="@+id/divider3"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="?android:attr/listDivider" />
@@ -126,8 +173,7 @@
             android:id="@+id/fragment"
             android:name="net.merayen.kitchentimer.fragments.ItemEditFragment"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

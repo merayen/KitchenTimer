@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 
 import net.merayen.kitchentimer.R
@@ -46,7 +48,8 @@ class ItemEditFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val viewModel = ViewModelProvider(this).get(ItemEditViewModel::class.java)
-        // TODO: Use the ViewModel
+        val textView = view?.findViewById<EditText>(R.id.itemName)
+        textView?.setText(viewModel.name)
     }
 
     companion object {
