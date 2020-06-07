@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.viewmodels.ItemEditViewModel
 import net.merayen.kitchentimer.viewmodels.TaskEditViewModel
 
@@ -50,6 +53,17 @@ class ItemEditFragment : Fragment() {
         val viewModel = ViewModelProvider(this).get(ItemEditViewModel::class.java)
         val textView = view?.findViewById<EditText>(R.id.itemName)
         textView?.setText(viewModel.name)
+
+        textView?.addTextChangedListener {
+            println("Da ble teksten: $it")
+            if (it != null)
+                viewModel.getItemData().setName(it.toString())
+        }
+
+        viewModel.getItemData().observe(viewLifecycleOwner, Observer {
+            println("Fikk melding om: $it")
+            view?.findViewById<EditText>(R.id.itemName)?.setText(it.toString())
+        })
     }
 
     companion object {

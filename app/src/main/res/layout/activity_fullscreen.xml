@@ -24,7 +24,7 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
@@ -46,11 +46,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <RadioGroup
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/radioButton5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tasks" />
 
                         <RadioButton
                             android:id="@+id/radioButton4"
@@ -58,11 +64,6 @@
                             android:layout_height="wrap_content"
                             android:text="@string/items" />
 
-                        <RadioButton
-                            android:id="@+id/radioButton5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Tasks" />
                     </RadioGroup>
                 </LinearLayout>
             </ScrollView>
@@ -169,11 +170,24 @@
             android:layout_height="match_parent"
             android:background="?android:attr/listDivider" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemList"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment"
+            android:id="@+id/itemEdit"
             android:name="net.merayen.kitchentimer.fragments.ItemEditFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.fragment.app.FragmentContainerView>
 
     </LinearLayout>
 
