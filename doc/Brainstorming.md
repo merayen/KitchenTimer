@@ -21,6 +21,8 @@ available)
         - Sets how much gram this task will make, if it does that
 
 ## How to structure
+*Nope, not doing like this. Only Item and Task.*
+
 - Everything could be an "Item":
     - The ingredient
     - The tool

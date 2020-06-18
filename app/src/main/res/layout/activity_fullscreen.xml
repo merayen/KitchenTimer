@@ -150,18 +150,13 @@
             android:layout_width="200dp"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/itemList"
+                android:name="net.merayen.kitchentimer.fragments.ItemListFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. Jeg er så glad i lange tekster. "
-                    android:visibility="visible" />
-            </LinearLayout>
         </ScrollView>
 
         <View
@@ -170,10 +165,6 @@
             android:layout_height="match_parent"
             android:background="?android:attr/listDivider" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemList"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
 
         <View
             android:id="@+id/divider4"

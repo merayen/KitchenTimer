@@ -7,22 +7,23 @@ import androidx.room.PrimaryKey
 
 
 /**
- * Links tasks together.
+ * Makes one task depend on other tasks.
+ *
  * @property id The unique id of this link
  * @property task The task owning the link
- * @property child The task that the owning task contains
+ * @property dependsOn The task that the owning task contains
  */
 @Entity(
 	foreignKeys = [
 		ForeignKey(
 			entity = Task::class,
 			parentColumns = arrayOf("id"),
-			childColumns = arrayOf("task")
+			childColumns = arrayOf("dependsOn")
 		)
 	]
 )
-class TaskReference(
+class TaskDependency(
 	@PrimaryKey val id: Int,
 	@ColumnInfo(index = true) val task: Int,
-	@ColumnInfo val child: Int
+	@ColumnInfo val dependsOn: Int
 )

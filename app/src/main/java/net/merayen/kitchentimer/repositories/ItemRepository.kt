@@ -1,6 +1,7 @@
 package net.merayen.kitchentimer.repositories
 
 import androidx.lifecycle.LiveData
+import androidx.room.Query
 import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.queries.ItemDao
 import javax.inject.Inject
@@ -11,13 +12,9 @@ class ItemRepository @Inject constructor(
     private val itemDao: ItemDao
 )
 {
-    fun getAllItems() {
-        TODO()
-    }
+    fun getAllItems() = itemDao.getAll()
 
     fun getItem(id: Int): LiveData<Item> = itemDao.load(id)
 
-    suspend fun save(item: Item) {
-        itemDao.save(item)
-    }
+    fun save(item: Item) = itemDao.save(item)
 }

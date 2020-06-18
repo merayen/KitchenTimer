@@ -14,11 +14,10 @@ import net.merayen.kitchentimer.queries.TaskDao
 @Database(
     entities = [
         Task::class,
-        TaskReference::class,
-        Tool::class,
-        ToolsRequired::class,
-        ToolProperty::class,
-        Item::class
+        TaskDependency::class,
+        Item::class,
+        ItemInstance::class,
+        ItemInstanceProperty::class
     ],
     version = 1,
     exportSchema = false
