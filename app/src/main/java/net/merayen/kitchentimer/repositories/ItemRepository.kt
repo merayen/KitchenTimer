@@ -16,4 +16,8 @@ class ItemRepository @Inject constructor(
     }
 
     fun getItem(id: Int): LiveData<Item> = itemDao.load(id)
+
+    suspend fun save(item: Item) {
+        itemDao.save(item)
+    }
 }

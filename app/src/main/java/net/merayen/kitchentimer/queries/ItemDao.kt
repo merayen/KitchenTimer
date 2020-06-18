@@ -18,4 +18,7 @@ interface ItemDao {
 
     @Query("SELECT * FROM Item WHERE id = :id")
     fun load(id: Int): LiveData<Item>
+
+    @Query("DELETE FROM Item")
+    fun deleteAll()
 }

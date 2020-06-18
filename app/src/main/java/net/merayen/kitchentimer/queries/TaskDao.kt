@@ -8,9 +8,9 @@ interface TaskDao {
 	@Query("SELECT * FROM Task WHERE id IN (:ids)")
 	fun loadByIds(ids: IntArray): List<Task>
 
-	//@Insert
-	//suspend fun insert(task: Task)
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun save(task: Task)
 
-	//@Delete
-	//suspend fun delete(task: Task)
+	@Query("DELETE FROM Task")
+	fun deleteAll()
 }

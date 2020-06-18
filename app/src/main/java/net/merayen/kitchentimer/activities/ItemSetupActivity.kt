@@ -71,8 +71,6 @@ class ItemSetupActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        applicationContext.appCom
-
         mVisible = true
 
         val itemList = findViewById<RecyclerView>(R.id.itemList)

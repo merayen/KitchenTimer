@@ -1,11 +1,28 @@
 package net.merayen.kitchentimer.viewmodels
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import net.merayen.kitchentimer.AppDatabase
+import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.repositories.ItemRepository
-import javax.inject.Inject
 
-class ItemEditViewModel : ViewModel() {
-    @Inject lateinit var itemRepository: ItemRepository
+class ItemEditViewModel(application: Application) : AndroidViewModel(application) {
+    //@Inject lateinit var itemRepository: ItemRepository
+    private val itemRepository = ItemRepository(AppDatabase.getDatabase(application).itemDao())
+    private var currentId: Int? = null
 
-    fun load(id: Int) = itemRepository.getItem(id)
+    fun save(item: Item) = viewModelScope.launch(Dispatchers.IO) {
+        itemRepository.save(item)
+    }
+
+    fun get(id: Int): LiveData<Item> {
+        currentId = id
+        return itemRepository.getItem(id)
+    }
+
+    fun get() = itemRepository.getItem(currentId ?: throw RuntimeException("No id given yet")).value
 }
