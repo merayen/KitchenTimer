@@ -41,7 +41,6 @@ class ItemSetupActivity : AppCompatActivity() {
             println("MyAdapter position: $position")
             holder.view.itemName.text = "$position<br />HTM<b>L</b>?"
         }
-
     }
 
     private val mHideHandler = Handler()
@@ -71,6 +70,8 @@ class ItemSetupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_fullscreen)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        applicationContext.appCom
 
         mVisible = true
 

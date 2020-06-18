@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.viewmodels.ItemEditViewModel
-import net.merayen.kitchentimer.viewmodels.TaskEditViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+/* TODO: Rename parameter arguments, choose names that match the fragment initialization parameters, e.g.
+    ARG_ITEM_NUMBER */
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -31,12 +29,21 @@ class ItemEditFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val viewModel by viewModels<ItemEditViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        (context )
+
+        //viewModel.load(1)?.observe(this, Observer<Item> {
+        //    println("Got this name: ${it.name}")
+        //    val textView = view?.findViewById<EditText>(R.id.itemName)?.setText(it.name)
+        //})
     }
 
     override fun onCreateView(
@@ -50,20 +57,16 @@ class ItemEditFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val viewModel = ViewModelProvider(this).get(ItemEditViewModel::class.java)
         val textView = view?.findViewById<EditText>(R.id.itemName)
-        textView?.setText(viewModel.name)
 
-        textView?.addTextChangedListener {
-            println("Da ble teksten: $it")
-            if (it != null)
-                viewModel.getItemData().setName(it.toString())
-        }
+        viewModel.load(1) // TODO remove
 
-        viewModel.getItemData().observe(viewLifecycleOwner, Observer {
-            println("Fikk melding om: $it")
-            view?.findViewById<EditText>(R.id.itemName)?.setText(it.toString())
-        })
+        //textView?.setText(viewModel.item.value?.name)
+
+        //textView?.addTextChangedListener {
+        //    val item = viewModel.item.value ?: throw RuntimeException("Should not happen?")
+        //    item.name = it.toString()
+        //}
     }
 
     companion object {

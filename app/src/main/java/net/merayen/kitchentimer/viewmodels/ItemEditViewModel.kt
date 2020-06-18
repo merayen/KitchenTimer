@@ -1,23 +1,11 @@
 package net.merayen.kitchentimer.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import net.merayen.kitchentimer.data.Item
+import net.merayen.kitchentimer.repositories.ItemRepository
+import javax.inject.Inject
 
 class ItemEditViewModel : ViewModel() {
-    class MyLiveData : LiveData<Item>() {
-        fun setName(name: String) {
-            postValue(Item(123, name))
-        }
-    }
+    @Inject lateinit var itemRepository: ItemRepository
 
-    private val liveData = MyLiveData()
-
-    private var item = Item(1, "")
-
-    fun getItemData() = liveData
-
-    fun setName(name: String) {
-        item.name = name
-    }
+    fun load(id: Int) = itemRepository.getItem(id)
 }

@@ -35,8 +35,15 @@ abstract class AppDatabase : RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build()
                 this.db = newDb
+
+                initDb(newDb)
+
                 return newDb
             }
+        }
+
+        private fun initDb(db: AppDatabase) {
+            db.itemDao().load(0)
         }
     }
 
