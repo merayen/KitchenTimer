@@ -8,32 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.viewmodels.RunningTimerViewModel
-import kotlin.random.Random
+import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
 
-class RunningTimer : Fragment() { // TODO delete? As MyRunningTimersListRecycler… seems to do this?
+class WorkbenchTab : Fragment() {
 
     companion object {
-        fun newInstance() = RunningTimer()
+        fun newInstance() = WorkbenchTab()
     }
 
-    private lateinit var viewModel: RunningTimerViewModel
+    private lateinit var viewModel: WorkbenchTabViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.running_timer_fragment, container, false)
+        return inflater.inflate(R.layout.workbench_tab_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RunningTimerViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(WorkbenchTabViewModel::class.java)
         // TODO: Use the ViewModel
-
-        if (Random.nextBoolean()) {
-            view?.alpha = 1f
-        }
     }
 
 }

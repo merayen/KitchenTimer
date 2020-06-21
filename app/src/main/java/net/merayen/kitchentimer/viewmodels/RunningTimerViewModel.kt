@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.viewmodels
 
 import androidx.lifecycle.ViewModel
 

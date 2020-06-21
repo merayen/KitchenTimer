@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
 import net.merayen.kitchentimer.R
 
 
@@ -38,13 +40,25 @@ class MyRunningTimersListRecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_running_timers_list, parent, false)
+
+        view.findViewById<Button>(R.id.show).setOnClickListener {
+            Snackbar.make(
+                view,
+                "Should show the whole task in the tab container",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mContentView.text = item.content
-        holder.mView.setBackgroundColor(arrayOf(Color.YELLOW, Color.RED, Color.BLUE, Color.GREEN)[Random.nextInt(4)])
+
+        if (position > 5)
+            holder.mView.alpha = 0.5f
+        else
+            holder.mView.setBackgroundColor(arrayOf(Color.YELLOW, Color.RED, Color.BLUE, Color.GREEN)[Random.nextInt(4)])
 
         with(holder.mView) {
             tag = item
