@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_fullscreen.*
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.fragments.RunningTimersListFragment
+import net.merayen.kitchentimer.fragments.dummy.DummyContent
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class ItemSetupActivity : AppCompatActivity() {
+class ItemSetupActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragmentInteractionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fullscreen)
@@ -29,5 +31,9 @@ class ItemSetupActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
         supportActionBar?.hide()
+    }
+
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+        println("YOU TAPPED $item") // TODO should be captured by a sub fragment showing the running timers?
     }
 }
