@@ -43,7 +43,7 @@ class MyRunningTimersListRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mContentView.text = "${position + 1} ${item.content}"
+        holder.mContentView.text = item.content
         holder.mView.setBackgroundColor(arrayOf(Color.YELLOW, Color.RED, Color.BLUE, Color.GREEN)[Random.nextInt(4)])
 
         with(holder.mView) {

@@ -16,30 +16,26 @@ object DummyContent {
      */
     val ITEMS: MutableList<DummyItem> = ArrayList()
 
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    val ITEM_MAP: MutableMap<Int, DummyItem> = HashMap()
-
     init {
-        addItem(DummyItem(1, "Skrelle poteter"))
-        addItem(DummyItem(2, "Koke opp vann"))
-        addItem(DummyItem(3, "Koke poteter"))
-        addItem(DummyItem(4, "Steke fisk"))
-        addItem(DummyItem(5, "Klargjøre brokoli"))
-        addItem(DummyItem(6, "Varme opp flatgrill"))
-        addItem(DummyItem(7, "Flambere gulerøtter"))
+        addItem(DummyItem("Forvarm teppan"))
+        addItem(DummyItem("Hent poteter"))
+        addItem(DummyItem("Hent torsk"))
+        addItem(DummyItem("Hent brokkoli"))
+        addItem(DummyItem("Bland ingredienser til saus"))
+        addItem(DummyItem("Vask og kutt brokkoli"))
+        addItem(DummyItem("Stek fisk"))
+        addItem(DummyItem("Stek gulerøtter"))
+        addItem(DummyItem("Stek brokkoli"))
     }
 
     private fun addItem(item: DummyItem) {
         ITEMS.add(item)
-        ITEM_MAP[item.id] = item
     }
 
     /**
      * A dummy item representing a piece of content.
      */
-    data class DummyItem(val id: Int, val content: String) {
+    data class DummyItem(val content: String) {
         override fun toString(): String = content
     }
 }
