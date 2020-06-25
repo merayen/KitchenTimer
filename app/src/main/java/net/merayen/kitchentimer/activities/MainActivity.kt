@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.isEmpty
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.main_activity.*
@@ -18,6 +19,12 @@ import java.lang.RuntimeException
  * status bar and navigation/system bar) with user interaction.
  */
 class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragmentInteractionListener {
+    /**
+     * If set, this will be sent to the WorkbenchTab fragment when it has been loaded.
+     * Typically set when user clicks on a running task.
+     */
+    private var workbenchTabSelectItem: Int? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -54,7 +61,19 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
         selectTab(0)
     }
 
+    override fun onAttachFragment(fragment: Fragment) {
+        println("Fragment $fragment attached to the activity")
+        if (fragment is WorkbenchTab) {
+            val workbenchTabSelectItem = workbenchTabSelectItem
+            if (workbenchTabSelectItem != null) {
+                fragment.selectTask(workbenchTabSelectItem)
+                this.workbenchTabSelectItem = null
+            }
+        }
+    }
+
     private fun selectTab(position: Int) {
+        println("Tab has been chosen: $position")
         supportFragmentManager.commit {
             val tabContent = findViewById<FrameLayout>(R.id.tabContent)
 
@@ -77,5 +96,9 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
         println("YOU TAPPED $item") // TODO should be captured by a sub fragment showing the running timers?
+        workbenchTabSelectItem = item?.id
+        val tabs = findViewById<TabLayout>(R.id.tabs)
+        tabs.getTabAt(0)?.select()
+        println(supportFragmentManager.findFragmentById(R.id.tabContent))
     }
 }

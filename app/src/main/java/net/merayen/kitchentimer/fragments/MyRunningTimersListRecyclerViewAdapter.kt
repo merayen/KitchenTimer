@@ -41,13 +41,6 @@ class MyRunningTimersListRecyclerViewAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_running_timers_list, parent, false)
 
-        view.findViewById<Button>(R.id.show).setOnClickListener {
-            Snackbar.make(
-                view,
-                "Should show the whole task in the tab container",
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
         return ViewHolder(view)
     }
 

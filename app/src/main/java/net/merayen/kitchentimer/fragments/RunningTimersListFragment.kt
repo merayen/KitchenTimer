@@ -20,8 +20,6 @@ import net.merayen.kitchentimer.fragments.dummy.DummyContent.DummyItem
  * [RunningTimersListFragment.OnListFragmentInteractionListener] interface.
  */
 class RunningTimersListFragment : Fragment() {
-
-    // TODO: Customize parameters
     private var columnCount = 1
 
     private var listener: OnListFragmentInteractionListener? = null
