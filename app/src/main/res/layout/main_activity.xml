@@ -78,11 +78,22 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/runningTimers"
             android:name="net.merayen.kitchentimer.fragments.RunningTimersListFragment"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="50dp" />
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import androidx.core.view.get
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -62,7 +63,6 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
     }
 
     override fun onAttachFragment(fragment: Fragment) {
-        println("Fragment $fragment attached to the activity")
         if (fragment is WorkbenchTab) {
             val workbenchTabSelectItem = workbenchTabSelectItem
             if (workbenchTabSelectItem != null) {
@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
     }
 
     private fun selectTab(position: Int) {
-        println("Tab has been chosen: $position")
         supportFragmentManager.commit {
             val tabContent = findViewById<FrameLayout>(R.id.tabContent)
 
@@ -95,10 +94,8 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
-        println("YOU TAPPED $item") // TODO should be captured by a sub fragment showing the running timers?
         workbenchTabSelectItem = item?.id
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.getTabAt(0)?.select()
-        println(supportFragmentManager.findFragmentById(R.id.tabContent))
     }
 }

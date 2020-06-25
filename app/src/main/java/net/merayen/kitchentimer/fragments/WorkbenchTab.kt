@@ -13,16 +13,21 @@ import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
 
 class WorkbenchTab : Fragment() {
-    /**
-     * Set this to make this view show a running task
-     */
-    var showRunningTaskId: Int? = null
+    class InitData {
+        /**
+         * Set this to make this view show a running task
+         */
+        var showRunningTaskId: Int? = null
+    }
 
+    var showRunningTaskId: Int? = null
     companion object {
         fun newInstance() = WorkbenchTab()
     }
 
     private lateinit var viewModel: WorkbenchTabViewModel
+
+    var initData: InitData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +49,8 @@ class WorkbenchTab : Fragment() {
 
             this.showRunningTaskId = null
         }
+
+        println("WorkbenchTab test number: ${viewModel.test}")
     }
 
     fun selectTask(taskInstance: Int) { // TODO should be some kind of task instance?
