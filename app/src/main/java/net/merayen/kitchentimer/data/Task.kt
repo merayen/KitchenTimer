@@ -9,7 +9,6 @@ import androidx.room.PrimaryKey
  * Tasks depends on each other.
  * @property id The unique id of this task
  * @property name The user friendly name of the task
- * @property duration How many seconds this task requires
  */
 @Entity
 data class Task(

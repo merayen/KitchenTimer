@@ -7,20 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
 
 class WorkbenchTab : Fragment() {
-    class InitData {
-        /**
-         * Set this to make this view show a running task
-         */
-        var showRunningTaskId: Int? = null
-    }
-
-    class TaskListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
+    class RunningTaskListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
         private val mOnClickListener: View.OnClickListener
         var onItemClick: (() -> Unit)? = null
 
@@ -41,15 +35,19 @@ class WorkbenchTab : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            TODO("Not yet implemented")
+            return 3
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            TODO("Not yet implemented")
+            holder.mView.findViewById<TextView>(R.id.name).text = arrayOf(
+                "Skrell poteter",
+                "Stek kjøttkaker",
+                "Kok poteter"
+            )[position]
         }
     }
 
-    class ViewHolder(private val mView: View) : RecyclerView.ViewHolder(mView) {
+    class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         //private val mContentView: TextView = mView.content
 
         override fun toString(): String {
@@ -58,19 +56,27 @@ class WorkbenchTab : Fragment() {
     }
 
     var showRunningTaskId: Int? = null
+
     companion object {
         fun newInstance() = WorkbenchTab()
     }
 
     private lateinit var viewModel: WorkbenchTabViewModel
 
-    var initData: InitData? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.workbench_tab_fragment, container, false)
+        val view = inflater.inflate(R.layout.workbench_tab_fragment, container, false)
+
+        // Set the adapter on the task item list
+        val taskList = view.findViewById<RecyclerView>(R.id.taskList)
+        with (taskList) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = RunningTaskListRecyclerViewAdapter()
+        }
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
