@@ -1,19 +1,24 @@
 package net.merayen.kitchentimer.fragments
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
+import java.util.*
 
 class WorkbenchTab : Fragment() {
+    private val viewModel by viewModels<WorkbenchTabViewModel>()
+
     class RunningTaskListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
         private val mOnClickListener: View.OnClickListener
         var onItemClick: (() -> Unit)? = null
@@ -61,7 +66,7 @@ class WorkbenchTab : Fragment() {
         fun newInstance() = WorkbenchTab()
     }
 
-    private lateinit var viewModel: WorkbenchTabViewModel
+    //private lateinit var viewModel: WorkbenchTabViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +76,7 @@ class WorkbenchTab : Fragment() {
 
         // Set the adapter on the task item list
         val taskList = view.findViewById<RecyclerView>(R.id.taskList)
-        with (taskList) {
+        with(taskList) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = RunningTaskListRecyclerViewAdapter()
         }
@@ -81,19 +86,23 @@ class WorkbenchTab : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(WorkbenchTabViewModel::class.java)
-        // TODO: Use the ViewModel
 
         val showRunningTaskId = showRunningTaskId
         if (showRunningTaskId != null) {
             val noe = view
             val textView = noe!!.findViewById<TextView>(R.id.debugText)
-            textView.text = "Should show TaskInstance $showRunningTaskId"
+
+            viewModel.use(showRunningTaskId)
+            viewModel.task?.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    println("Now showing ${it.name} in the view!")
+                    textView.text = it.name
+                }
+            })
 
             this.showRunningTaskId = null
         }
 
-        println("WorkbenchTab test number: ${viewModel.test}")
     }
 
     fun selectTask(taskInstance: Int) { // TODO should be some kind of task instance?

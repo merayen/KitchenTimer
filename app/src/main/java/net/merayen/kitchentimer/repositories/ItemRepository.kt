@@ -10,8 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class ItemRepository @Inject constructor(
     private val itemDao: ItemDao
-)
-{
+) {
     fun getAllItems() = itemDao.getAll()
 
     fun getItem(id: Int): LiveData<Item> = itemDao.load(id)

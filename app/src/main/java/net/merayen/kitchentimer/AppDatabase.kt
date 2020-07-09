@@ -25,8 +25,6 @@ import net.merayen.kitchentimer.queries.TaskDao
 abstract class AppDatabase : RoomDatabase() {
     private class Callback : RoomDatabase.Callback() {
         override fun onOpen(database: SupportSQLiteDatabase) {
-            super.onOpen(database)
-
             INSTANCE.let { db ->
                 GlobalScope.launch {
                     db!!
@@ -36,6 +34,10 @@ abstract class AppDatabase : RoomDatabase() {
                     db.itemDao().save(Item(4, 0, "Potet"))
 
                     db.taskDao().save(Task(1, "Koke poteter"))
+                    db.taskDao().save(Task(2, "Hente agurk"))
+                    db.taskDao().save(Task(3, "Skrelle poteter"))
+                    db.taskDao().save(Task(4, "Varme teppan"))
+                    db.taskDao().save(Task(5, "Steke pannekaker"))
                 }
             }
         }
