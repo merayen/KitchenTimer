@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.fragments.dummy.DummyContent
 
-import net.merayen.kitchentimer.fragments.dummy.DummyContent.DummyItem
+import net.merayen.kitchentimer.viewmodels.RunningTimerViewModel
 
 /**
  * A fragment representing a list of Items.
@@ -21,6 +22,8 @@ import net.merayen.kitchentimer.fragments.dummy.DummyContent.DummyItem
  */
 class RunningTimersListFragment : Fragment() {
     private var columnCount = 1
+
+    private val viewModel by viewModels<RunningTimerViewModel>()
 
     private var listener: OnListFragmentInteractionListener? = null
 
@@ -45,7 +48,13 @@ class RunningTimersListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyRunningTimersListRecyclerViewAdapter(DummyContent.ITEMS, listener)
+
+                val adapter = MyRunningTimersListRecyclerViewAdapter(listener)
+                this.adapter = adapter
+
+                viewModel.getRunningTasks().observe(this@RunningTimersListFragment.viewLifecycleOwner, Observer {
+                    adapter.setItems(it)
+                })
             }
         }
         return view
@@ -77,8 +86,7 @@ class RunningTimersListFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(runningTaskId: Int)
     }
 
     companion object {

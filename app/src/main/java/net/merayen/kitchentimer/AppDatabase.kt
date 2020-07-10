@@ -9,12 +9,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.merayen.kitchentimer.data.*
 import net.merayen.kitchentimer.queries.ItemDao
+import net.merayen.kitchentimer.queries.RunningTaskDao
 import net.merayen.kitchentimer.queries.TaskDao
 
 @Database(
     entities = [
         Task::class,
         TaskDependency::class,
+        RunningTask::class,
         Item::class,
         ItemInstance::class,
         ItemInstanceProperty::class
@@ -38,6 +40,9 @@ abstract class AppDatabase : RoomDatabase() {
                     db.taskDao().save(Task(3, "Skrelle poteter"))
                     db.taskDao().save(Task(4, "Varme teppan"))
                     db.taskDao().save(Task(5, "Steke pannekaker"))
+
+                    db.runningTaskDao().save(RunningTask(1, 1, elapsed = 83))
+                    db.runningTaskDao().save(RunningTask(2, 4, elapsed = 83))
                 }
             }
         }
@@ -62,4 +67,5 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun taskDao(): TaskDao
     abstract fun itemDao(): ItemDao
+    abstract fun runningTaskDao(): RunningTaskDao
 }

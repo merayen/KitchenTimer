@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.view.get
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -12,7 +11,6 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.main_activity.*
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.fragments.*
-import net.merayen.kitchentimer.fragments.dummy.DummyContent
 import java.lang.RuntimeException
 
 /**
@@ -93,8 +91,8 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
         }
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
-        workbenchTabSelectItem = item?.id
+    override fun onListFragmentInteraction(runningTaskId: Int) {
+        workbenchTabSelectItem = runningTaskId
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.getTabAt(0)?.select()
     }

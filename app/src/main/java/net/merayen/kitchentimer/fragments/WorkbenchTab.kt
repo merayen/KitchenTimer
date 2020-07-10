@@ -102,7 +102,6 @@ class WorkbenchTab : Fragment() {
 
             this.showRunningTaskId = null
         }
-
     }
 
     fun selectTask(taskInstance: Int) { // TODO should be some kind of task instance?

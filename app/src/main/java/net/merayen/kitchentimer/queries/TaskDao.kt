@@ -7,7 +7,7 @@ import net.merayen.kitchentimer.data.Task
 @Dao
 interface TaskDao {
 	@Query("SELECT * FROM Task WHERE id IN (:ids)")
-	fun loadByIds(ids: IntArray): LiveData<List<Task>>
+	fun get(ids: List<Int>): LiveData<List<Task>>
 
 	@Query("SELECT * FROM Task WHERE id = :id")
 	fun get(id: Int): LiveData<Task>

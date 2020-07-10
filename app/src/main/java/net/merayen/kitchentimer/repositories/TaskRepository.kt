@@ -10,5 +10,6 @@ class TaskRepository @Inject constructor(
     private val taskDao: TaskDao
 ) {
     fun save(task: Task) = taskDao.save(task)
+    fun get(ids: List<Int>) = taskDao.get(ids)
     fun get(id: Int) = taskDao.get(id)
 }
