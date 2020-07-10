@@ -8,18 +8,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.data.RunningTask
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
-import java.util.*
 
 class WorkbenchTab : Fragment() {
     private val viewModel by viewModels<WorkbenchTabViewModel>()
 
     class RunningTaskListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
+        var runningTasks: List<RunningTask>? = ArrayList()
+
         private val mOnClickListener: View.OnClickListener
         var onItemClick: (() -> Unit)? = null
 
@@ -44,6 +45,7 @@ class WorkbenchTab : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
             holder.mView.findViewById<TextView>(R.id.name).text = arrayOf(
                 "Skrell poteter",
                 "Stek kjøttkaker",
@@ -65,8 +67,6 @@ class WorkbenchTab : Fragment() {
     companion object {
         fun newInstance() = WorkbenchTab()
     }
-
-    //private lateinit var viewModel: WorkbenchTabViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,11 +92,12 @@ class WorkbenchTab : Fragment() {
             val noe = view
             val textView = noe!!.findViewById<TextView>(R.id.debugText)
 
-            viewModel.use(showRunningTaskId)
-            viewModel.task?.observe(viewLifecycleOwner, Observer {
+            println("RunningTask.id=$showRunningTaskId")
+            viewModel.get(showRunningTaskId).observe(viewLifecycleOwner, Observer {
                 if (it != null) {
-                    println("Now showing ${it.name} in the view!")
-                    textView.text = it.name
+                    textView.text = it.taskName
+                } else {
+                    println("$showRunningTaskId not found :( ")
                 }
             })
 

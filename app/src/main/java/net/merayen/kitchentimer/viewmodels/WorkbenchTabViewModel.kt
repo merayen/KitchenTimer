@@ -7,23 +7,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import net.merayen.kitchentimer.AppDatabase
 import net.merayen.kitchentimer.data.Task
+import net.merayen.kitchentimer.livedata.RunningTaskData
+import net.merayen.kitchentimer.repositories.RunningTaskRepository
 import net.merayen.kitchentimer.repositories.TaskRepository
 
 class WorkbenchTabViewModel(application: Application) : AndroidViewModel(application) {
     private val taskRepository = TaskRepository(AppDatabase.getDatabase(application).taskDao())
-
-    /**
-     * Task that is currently being shown on the right side of the workspace
-     */
-    var task: LiveData<Task>? = null
-        private set
+    private val runningTaskRepository = RunningTaskRepository(AppDatabase.getDatabase(application).runningTaskDao())
 
     /**
      * The list of all the active tasks on the left side of the workspace
      */
-    val taskList: Unit? = null
+    val runningTasks: List<RunningTaskData>? = null
 
-    fun use(id: Int) {
-        task = taskRepository.get(id)
-    }
+    fun get(id: Int) = runningTaskRepository.getRunningTaskData(id)
 }

@@ -42,7 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
                     db.taskDao().save(Task(5, "Steke pannekaker"))
 
                     db.runningTaskDao().save(RunningTask(1, 1, elapsed = 83))
-                    db.runningTaskDao().save(RunningTask(2, 4, elapsed = 83))
+                    db.runningTaskDao().save(RunningTask(2, 4, elapsed = 343))
                 }
             }
         }

@@ -11,7 +11,6 @@ import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.repositories.ItemRepository
 
 class ItemEditViewModel(application: Application) : AndroidViewModel(application) {
-    //@Inject lateinit var itemRepository: ItemRepository
     private val itemRepository = ItemRepository(AppDatabase.getDatabase(application).itemDao())
     private var currentId: Int? = null
 

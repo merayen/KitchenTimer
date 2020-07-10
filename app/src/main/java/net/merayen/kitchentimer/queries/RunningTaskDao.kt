@@ -34,6 +34,21 @@ interface RunningTaskDao {
     @Query("SELECT * FROM RunningTask")
     fun get(): LiveData<List<RunningTask>>
 
+    @Query(
+        """
+        SELECT
+            r.id AS runningTaskId,
+            r.start AS runningTaskStart,
+            r.elapsed AS runningTaskElapsed,
+            t.id AS taskId,
+            t.name AS taskName
+        FROM RunningTask r
+        JOIN Task t ON r.task = t.id
+        WHERE r.id = :id
+        """
+    )
+    fun getRunningTaskData(id: Int): LiveData<RunningTaskData>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(runningTask: RunningTask)
 }
