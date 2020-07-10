@@ -25,5 +25,5 @@ import androidx.room.PrimaryKey
 class TaskDependency(
 	@PrimaryKey val id: Int,
 	@ColumnInfo(index = true) val task: Int,
-	@ColumnInfo val dependsOn: Int
+	@ColumnInfo(index = true) val dependsOn: Int
 )

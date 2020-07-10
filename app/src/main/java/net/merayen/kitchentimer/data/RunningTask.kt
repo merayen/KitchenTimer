@@ -1,5 +1,6 @@
 package net.merayen.kitchentimer.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -22,7 +23,7 @@ import androidx.room.PrimaryKey
 )
 data class RunningTask(
     @PrimaryKey val id: Int,
-    val task: Int,
+    @ColumnInfo(index = true) val task: Int,
     val start: Long = 0L,
     val elapsed: Int = 0
 )
