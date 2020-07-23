@@ -118,7 +118,7 @@ class Statement(pos: Int, text: String) : Token(pos, text) {
     }
 
     override fun dump(): String {
-        return "${destination.dump()} = ${expression.dump()};"
+        return "${destination.dump()} = ${expression.dump()}"
     }
 }
 
@@ -167,7 +167,7 @@ class Number(pos: Int, text: String) : LiteralValue(pos, text) {
 }
 
 class Operator(pos: Int, text: String) : Token(pos, text) {
-    enum class Type(val code: String) { ADD("+"), SUB("-"), MUL("*"), DIV("/") }
+    enum class Type(val code: String) { ADD("+"), SUB("-"), MUL("*"), DIV("/"), POW("^")}
 
     val operator: Type
 

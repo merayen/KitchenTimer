@@ -85,6 +85,6 @@ internal class ParserKtTest {
         val text = "[the result] = 1 + 2 * (3 / 4)"
         val statement = parse(text)
 
-        assertEquals("$text;", statement.dump())
+        assertEquals(text, statement.dump())
     }
 }
