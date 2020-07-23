@@ -1,2 +1,4 @@
-rootProject.name='KitchenTimer'
+rootProject.name = 'KitchenTimer'
 include ':app'
+include 'Library'
+
