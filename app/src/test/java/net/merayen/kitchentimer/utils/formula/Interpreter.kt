@@ -32,18 +32,18 @@ class Interpreter {
         var operators = list.filterIndexed { index, _ -> index % 2 > 0 }.map { (it as Operator).operator }
 
         for (precedence in OPERATOR_PRECEDENCE) { // Handle operators in correct precedence
-            val temporaryNumbers = ArrayList(numbers) as ArrayList<Double?>
-            val temporaryOperators = ArrayList(operators) as ArrayList<Operator.Type?>
+            val newNumbers = ArrayList<Double>()
+            val newOperators = ArrayList<Operator.Type>()
 
-            if (temporaryNumbers.size - 1 != temporaryOperators.size)
-                throw RuntimeException("Should not happen: Nums=$numbers, Ops=$operators")
+            var index = -1
+            while (index < operators.size) {
+                val operator = operators[index]
 
-            for ((index, operator) in operators.withIndex()) {
-                if (operator == precedence) {
-                    val a = numbers[index]
+                if (operator == precedence) { // Deal with the operator now and compact the formula
+                    val a = if (newNumbers.isEmpty()) numbers[index] else newNumbers[newNumbers.size - 1]
                     val b = numbers[index + 1]
 
-                    temporaryNumbers[index] = when (operator) {
+                    val r = when (operator) {
                         Operator.Type.ADD -> a + b
                         Operator.Type.SUB -> a - b
                         Operator.Type.MUL -> a * b
@@ -51,20 +51,33 @@ class Interpreter {
                         Operator.Type.POW -> a.pow(b)
                     }
 
-                    // Mark elements for deletion as we have reduced
-                    temporaryNumbers[index + 1] = null
-                    temporaryOperators[index] = null
+                    println("Handling $a ${operator.code} $b = $r")
+
+                    if (newNumbers.isEmpty())
+                        newNumbers.add(0.0)
+
+                    newNumbers[newNumbers.size - 1] = r
+
+                    index++
+
+                } else { // Not doing this operator now. Just pass number and operator for later solving
+                    newNumbers.add(numbers[index])
+                    newOperators.add(operator)
                 }
             }
 
-            println(temporaryNumbers)
-            numbers = temporaryNumbers.filterNotNull()
-            operators = temporaryOperators.filterNotNull()
+            newNumbers.add(numbers[numbers.size - 1])
+
+            numbers = newNumbers
+            operators = newOperators
 
             val formulaReconstructed =
                 numbers.mapIndexed { index, item -> "$item ${if (index < operators.size) operators[index].code else ""}" }
                     .joinToString(" ")
             println("Handled ${precedence}: Nums=$numbers, Ops=$operators, formula: $formulaReconstructed")
+
+            if (numbers.size - 1 != operators.size)
+                throw RuntimeException("Should not happen")
         }
 
         if (numbers.size != 1 || operators.isNotEmpty())

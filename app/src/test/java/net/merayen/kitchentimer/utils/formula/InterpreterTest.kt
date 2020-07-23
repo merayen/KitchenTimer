@@ -27,7 +27,8 @@ internal class InterpreterTest {
     @Order(3)
     fun `check operator precedence`() {
         val testFormulas = mapOf(
-            "[a] = 3 + 5" to (3.0 + 5),
+            "[a] = 1 + 2" to (3.0 + 5),
+            "[a] = 1 + 2 + 3" to (1.0 + 2 + 3),
             "[a] = 3 + 5 * 7" to (3.0 + 5 * 7),
             "[a] = 3 * 5 + 7 - 5 + 2 + 3" to (3.0 * 5 + 7 - 5 + 2 + 3),
             "[a] = 3 * 5 / 7 * 11" to (3 * 5 / 7.0 * 11)
