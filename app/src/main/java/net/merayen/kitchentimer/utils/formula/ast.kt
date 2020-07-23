@@ -10,38 +10,55 @@ abstract class Token(val startPos: Int, private val text: String) {
     var pos = startPos
         private set
 
-    private val children = ArrayList<Token>()
+    protected val children = ArrayList<Token>()
 
-    fun <T : Token> consume(cls: KClass<out T>): T? {
-        val instance: T
-        try {
-            instance = cls.constructors.first().call(pos, text)
-        } catch (exception: InvocationTargetException) {
-            if (exception.targetException is ParseFailed)
-                return null
-            else
-                throw exception
+    abstract fun dump(): String
+
+    fun consumeAny(vararg anyClasses: KClass<out Token>): Token? {
+        var instance: Token? = null
+        for (cls in anyClasses) {
+            try {
+                instance = cls.constructors.first().call(pos, text)
+                break
+            } catch (exception: InvocationTargetException) {
+                if (exception.targetException !is ParseFailed)
+                    throw exception
+
+                println("${cls.simpleName} could not parse the remaining text: ${text.substring(pos)}")
+            }
         }
+
+        instance ?: return null
 
         if (instance.pos <= pos)
             throw RuntimeException("${instance::class.simpleName} did not consume anything. Forgotten to call fail()?")
 
+        println("${instance::class.simpleName} parsed this text: ${text.substring(pos, instance.pos)}")
+
         pos = instance.pos
         children.add(instance)
+
         return instance
     }
 
-    fun consume(searchText: String): String? {
-        if (this.text.substring(pos).startsWith(searchText)) {
-            pos += searchText.length
-            return searchText
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Token>consume(cls: KClass<out T>): T? = consumeAny(cls) as T?
+
+    fun consumeAny(vararg searchText: String): String? {
+        for (s in searchText) {
+            if (pos < text.length && text.startsWith(s, pos)) {
+                pos += s.length
+                return s
+            }
         }
 
         return null
     }
 
+    fun consume(searchText: String): String? = consumeAny(searchText)
+
     fun consume(char: Char): Char? {
-        if (text[pos] == char) {
+        if (pos < text.length && text[pos] == char) {
             pos++
             return char
         }
@@ -54,7 +71,7 @@ abstract class Token(val startPos: Int, private val text: String) {
         do {
             var hit = false
             for (c in chars) {
-                if (text[pos + read] == c) {
+                if ((pos + read) < text.length && text[pos + read] == c) {
                     read += 1
                     hit = true
                 }
@@ -71,7 +88,7 @@ abstract class Token(val startPos: Int, private val text: String) {
     }
 
     protected fun fail(): Nothing {
-        println("Parsing stopped at: ${Thread.currentThread().stackTrace[2]}")
+        //println("Parsing stopped at: ${Thread.currentThread().stackTrace[2]}")
         throw ParseFailed()
     }
 }
@@ -87,76 +104,117 @@ class Whitespace(pos: Int, text: String) : Token(pos, text) {
         if (!read)
             fail()
     }
+
+    override fun dump() = " "
 }
 
 class Statement(pos: Int, text: String) : Token(pos, text) {
     var destination: Variable
         private set
 
+    var expression: Expression
+        private set
+
     init {
         consume(Whitespace::class)
         destination = consume(Variable::class) ?: fail()
+        consume(Whitespace::class)
         consume(Assign::class) ?: fail()
         consume(Whitespace::class)
-        consume(Expression::class) ?: fail()
+        expression = consume(Expression::class) ?: fail()
+    }
+
+    override fun dump(): String {
+        return "${destination.dump()} = ${expression.dump()};"
     }
 }
 
 class Expression(pos: Int, text: String) : Token(pos, text) {
-    lateinit var destination: Variable
-        private set
+    val list = ArrayList<Token>()
 
     init {
-        var read = false
-        while (consume(Variable::class) ?: consume(Number::class) != null) {
-            read = true
-
+        while (true) {
+            // TODO look for parentheses?
+            list.add(consumeAny(Variable::class, Number::class) ?: break)
             consume(Whitespace::class)
-            consume(Operator::class) ?: break
+            list.add(consume(Operator::class) ?: break)
             consume(Whitespace::class)
         }
 
-        if (!read)
+        if (list.isEmpty())
             fail()
     }
+
+    override fun dump() = list.joinToString("") { it.dump() }
 }
 
 class Number(pos: Int, text: String) : LiteralValue(pos, text) {
-    init {
-        var read = false
-        while ("0123456789.".map { consume(it) }.any { it != null })
-            read = true
+    val number: Double
 
-        if (!read)
+    init {
+        val stringBuilder = StringBuilder()
+        while (true) {
+            val chars = "0123456789.".map { consume(it) }.filterNotNull().joinToString("")
+            if (chars.isEmpty())
+                break
+
+            stringBuilder.append(chars)
+       }
+
+        if (stringBuilder.count { it == '.' } > 1)
             fail()
+
+        if (stringBuilder.isEmpty())
+            fail()
+
+        number = stringBuilder.toString().toDouble()
     }
+
+    override fun dump() = number.toString()
 }
 
 class Operator(pos: Int, text: String) : Token(pos, text) {
     enum class Type(val code: String) { ADD("+"), SUB("-"), MUL("*"), DIV("/") }
 
+    val operator: Type
+
     init {
-        Type.values().firstOrNull { consume(it.code) != null } ?: fail()
+        operator = Type.values().firstOrNull { consume(it.code) != null } ?: fail()
     }
+
+    override fun dump() = " ${operator.code} "
 }
 
 class Assign(pos: Int, text: String) : Token(pos, text) {
     init {
         consume("=") ?: fail()
     }
+
+    override fun dump() = " = "
 }
 
 class Variable(pos: Int, text: String) : Token(pos, text) {
     companion object {
-        private val allowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ .".toCharArray()
+        private val allowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ .".map { it.toString() }.toTypedArray()
     }
+
+    val name: String
 
     init {
         consume("[") ?: fail()
-        println("Kom hit A")
-        consume(allowedCharacters) ?: fail()
-        println("Kom hit B")
+
+        val stringBuilder = StringBuilder()
+        while (true) {
+            stringBuilder.append(consumeAny(*allowedCharacters) ?: break)
+        }
+
+        if (stringBuilder.isEmpty())
+            fail()
+
         consume("]") ?: fail()
-        println("Kom hit C")
+
+        name = stringBuilder.toString()
     }
+
+    override fun dump() = name
 }
