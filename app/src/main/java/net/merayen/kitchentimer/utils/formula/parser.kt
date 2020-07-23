@@ -7,15 +7,11 @@ class CanNotParse : RuntimeException()
  * This is custom as heck.
  */
 fun parse(text: String): Token {
-    println("Trying out as Statement")
-    var result: Token
-
-    try {
-        result = Statement(0, text)
+    val result: Token = try {
+        Statement(0, text)
     } catch (e: Token.ParseFailed) {
-        println("Trying out as Expression")
         try {
-            result = Expression(0, text)
+            Expression(0, text)
         } catch (e: Token.ParseFailed) {
             throw CanNotParse()
         }

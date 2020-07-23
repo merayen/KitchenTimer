@@ -10,11 +10,11 @@ abstract class Token(val startPos: Int, private val text: String) {
     var pos = startPos
         private set
 
-    protected val children = ArrayList<Token>()
+    private val children = ArrayList<Token>()
 
     abstract fun dump(): String
 
-    fun consumeAny(vararg anyClasses: KClass<out Token>): Token? {
+    protected fun consumeAny(vararg anyClasses: KClass<out Token>): Token? {
         var instance: Token? = null
         for (cls in anyClasses) {
             try {
@@ -23,8 +23,6 @@ abstract class Token(val startPos: Int, private val text: String) {
             } catch (exception: InvocationTargetException) {
                 if (exception.targetException !is ParseFailed)
                     throw exception
-
-                println("${cls.simpleName} could not parse the remaining text: ${text.substring(pos)}")
             }
         }
 
@@ -33,8 +31,6 @@ abstract class Token(val startPos: Int, private val text: String) {
         if (instance.pos <= pos)
             throw RuntimeException("${instance::class.simpleName} did not consume anything. Forgotten to call fail()?")
 
-        println("${instance::class.simpleName} parsed this text: ${text.substring(pos, instance.pos)}")
-
         pos = instance.pos
         children.add(instance)
 
@@ -42,9 +38,9 @@ abstract class Token(val startPos: Int, private val text: String) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Token>consume(cls: KClass<out T>): T? = consumeAny(cls) as T?
+    protected fun <T : Token>consume(cls: KClass<out T>): T? = consumeAny(cls) as T?
 
-    fun consumeAny(vararg searchText: String): String? {
+    protected fun consumeAny(vararg searchText: String): String? {
         for (s in searchText) {
             if (pos < text.length && text.startsWith(s, pos)) {
                 pos += s.length
@@ -55,9 +51,9 @@ abstract class Token(val startPos: Int, private val text: String) {
         return null
     }
 
-    fun consume(searchText: String): String? = consumeAny(searchText)
+    protected fun consume(searchText: String): String? = consumeAny(searchText)
 
-    fun consume(char: Char): Char? {
+    protected fun consume(char: Char): Char? {
         if (pos < text.length && text[pos] == char) {
             pos++
             return char
@@ -66,7 +62,7 @@ abstract class Token(val startPos: Int, private val text: String) {
         return null
     }
 
-    fun consume(chars: CharArray): String? {
+    protected fun consume(chars: CharArray): String? {
         var read = 0
         do {
             var hit = false
@@ -87,10 +83,7 @@ abstract class Token(val startPos: Int, private val text: String) {
         return text.substring(previousPos, pos)
     }
 
-    protected fun fail(): Nothing {
-        //println("Parsing stopped at: ${Thread.currentThread().stackTrace[2]}")
-        throw ParseFailed()
-    }
+    protected fun fail(): Nothing = throw ParseFailed()
 }
 
 abstract class LiteralValue(pos: Int, text: String) : Token(pos, text)
@@ -135,7 +128,7 @@ class Expression(pos: Int, text: String) : Token(pos, text) {
     init {
         while (true) {
             // TODO look for parentheses?
-            list.add(consumeAny(Variable::class, Number::class) ?: break)
+            list.add(consumeAny(Variable::class, Number::class, Parenthesis::class) ?: break)
             consume(Whitespace::class)
             list.add(consume(Operator::class) ?: break)
             consume(Whitespace::class)
@@ -170,7 +163,7 @@ class Number(pos: Int, text: String) : LiteralValue(pos, text) {
         number = stringBuilder.toString().toDouble()
     }
 
-    override fun dump() = number.toString()
+    override fun dump() = if (number - number.toLong() != 0.0) number.toString() else number.toLong().toString()
 }
 
 class Operator(pos: Int, text: String) : Token(pos, text) {
@@ -216,5 +209,19 @@ class Variable(pos: Int, text: String) : Token(pos, text) {
         name = stringBuilder.toString()
     }
 
-    override fun dump() = name
+    override fun dump() = "[$name]"
+}
+
+class Parenthesis(pos: Int, text: String) : Token(pos, text) {
+    val expression: Expression
+
+    init {
+        consume("(") ?: fail()
+        consume(Whitespace::class)
+        expression = consume(Expression::class) ?: fail()
+        consume(Whitespace::class)
+        consume(")") ?: fail()
+    }
+
+    override fun dump() = "(${expression.dump()})"
 }
