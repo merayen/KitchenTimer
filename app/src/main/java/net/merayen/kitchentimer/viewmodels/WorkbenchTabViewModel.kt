@@ -18,7 +18,7 @@ class WorkbenchTabViewModel(application: Application) : AndroidViewModel(applica
     /**
      * The list of all the active tasks on the left side of the workspace
      */
-    val runningTasks: List<RunningTaskData>? = null
+    val runningTasks = runningTaskRepository.getRunningTaskData()
 
     fun get(id: Int) = runningTaskRepository.getRunningTaskData(id)
 }
