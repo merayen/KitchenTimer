@@ -5,6 +5,7 @@ import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
+import kotlin.math.pow
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 internal class InterpreterTest {
@@ -27,18 +28,17 @@ internal class InterpreterTest {
     @Order(3)
     fun `check operator precedence`() {
         val testFormulas = mapOf(
-            "[a] = 1 + 2" to (3.0 + 5),
+            "[a] = 1 + 2" to (1.0 + 2),
             "[a] = 1 + 2 + 3" to (1.0 + 2 + 3),
             "[a] = 3 + 5 * 7" to (3.0 + 5 * 7),
             "[a] = 3 * 5 + 7 - 5 + 2 + 3" to (3.0 * 5 + 7 - 5 + 2 + 3),
-            "[a] = 3 * 5 / 7 * 11" to (3 * 5 / 7.0 * 11)
+            "[a] = 3 * 5 / 7^2 * 11" to (3 * 5 / 7.0.pow(2) * 11)
         )
 
         val interpreter = Interpreter()
 
         for ((formula, expected) in testFormulas.entries) {
             val statement = parse(formula) as Statement
-            println("Testing $formula")
             interpreter.run(statement)
 
             assertEquals(1, interpreter.registry.size)

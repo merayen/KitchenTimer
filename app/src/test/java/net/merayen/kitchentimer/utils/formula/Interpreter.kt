@@ -5,6 +5,9 @@ import kotlin.math.pow
 open class InterpreterError(message: String) : RuntimeException(message)
 class VariableNotDefined(name: String) : InterpreterError(name)
 
+/**
+ * Interprets a very simple and safe math language that looks like math.
+ */
 class Interpreter {
     companion object {
         val OPERATOR_PRECEDENCE = arrayOf(
@@ -18,10 +21,16 @@ class Interpreter {
 
     val registry = HashMap<String, Double>()
 
+    /**
+     * Runs a Statement and stores the result into the registry.
+     */
     fun run(statement: Statement) {
         registry[statement.destination.name] = run(statement.expression)
     }
 
+    /**
+     * Runs an expression and returns the value it produces.
+     */
     fun run(expression: Expression): Double {
         val list = ArrayList(expression.list)
 
@@ -32,58 +41,35 @@ class Interpreter {
         var operators = list.filterIndexed { index, _ -> index % 2 > 0 }.map { (it as Operator).operator }
 
         for (precedence in OPERATOR_PRECEDENCE) { // Handle operators in correct precedence
-            val newNumbers = ArrayList<Double>()
-            val newOperators = ArrayList<Operator.Type>()
+            val tempNumbers = ArrayList<Double>()
+            val tempOperators = ArrayList<Operator.Type>()
 
-            var index = -1
-            while (index < operators.size) {
-                val operator = operators[index]
+            tempNumbers.add(numbers[0])
 
-                if (operator == precedence) { // Deal with the operator now and compact the formula
-                    val a = if (newNumbers.isEmpty()) numbers[index] else newNumbers[newNumbers.size - 1]
-                    val b = numbers[index + 1]
-
-                    val r = when (operator) {
-                        Operator.Type.ADD -> a + b
-                        Operator.Type.SUB -> a - b
-                        Operator.Type.MUL -> a * b
-                        Operator.Type.DIV -> a / b
-                        Operator.Type.POW -> a.pow(b)
+            for ((index, operator) in operators.withIndex()) {
+                if (operator == precedence) {
+                    val pos = tempNumbers.size - 1
+                    when (operator) {
+                        Operator.Type.ADD -> tempNumbers[pos] += numbers[index + 1]
+                        Operator.Type.SUB -> tempNumbers[pos] -= numbers[index + 1]
+                        Operator.Type.MUL -> tempNumbers[pos] *= numbers[index + 1]
+                        Operator.Type.DIV -> tempNumbers[pos] /= numbers[index + 1]
+                        Operator.Type.POW -> tempNumbers[pos] = tempNumbers[pos].pow(numbers[index + 1])
                     }
-
-                    println("Handling $a ${operator.code} $b = $r")
-
-                    if (newNumbers.isEmpty())
-                        newNumbers.add(0.0)
-
-                    newNumbers[newNumbers.size - 1] = r
-
-                    index++
-
-                } else { // Not doing this operator now. Just pass number and operator for later solving
-                    newNumbers.add(numbers[index])
-                    newOperators.add(operator)
+                } else {
+                    tempOperators.add(operators[index])
+                    tempNumbers.add(numbers[index + 1])
                 }
             }
 
-            newNumbers.add(numbers[numbers.size - 1])
+            if (tempOperators.isEmpty())
+                return tempNumbers[0]
 
-            numbers = newNumbers
-            operators = newOperators
-
-            val formulaReconstructed =
-                numbers.mapIndexed { index, item -> "$item ${if (index < operators.size) operators[index].code else ""}" }
-                    .joinToString(" ")
-            println("Handled ${precedence}: Nums=$numbers, Ops=$operators, formula: $formulaReconstructed")
-
-            if (numbers.size - 1 != operators.size)
-                throw RuntimeException("Should not happen")
+            numbers = tempNumbers
+            operators = tempOperators
         }
 
-        if (numbers.size != 1 || operators.isNotEmpty())
-            throw RuntimeException("Should not happen: Nums=$numbers, Ops=$operators")
-
-        return numbers[0]
+        throw RuntimeException("Should not happen: Nums=$numbers, Ops=$operators")
     }
 
     private fun getNumberFromToken(token: Token): Double {
