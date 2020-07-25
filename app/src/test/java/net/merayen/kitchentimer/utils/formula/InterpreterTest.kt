@@ -19,7 +19,7 @@ internal class InterpreterTest {
     @Order(2)
     fun `simple assignment test`() {
         val interpreter = Interpreter()
-        interpreter.run(parse("[a] = 42") as Statement)
+        interpreter.run("[a] = 42")
 
         assertEquals(42.0, interpreter.registry["a"])
     }
@@ -38,8 +38,7 @@ internal class InterpreterTest {
         val interpreter = Interpreter()
 
         for ((formula, expected) in testFormulas.entries) {
-            val statement = parse(formula) as Statement
-            interpreter.run(statement)
+            interpreter.run(formula)
 
             assertEquals(1, interpreter.registry.size)
             assertEquals((expected * 1000000).toLong() / 1000000.0, (interpreter.registry["a"]!! * 1000000).toLong() / 1000000.0, "Formula: $formula")
