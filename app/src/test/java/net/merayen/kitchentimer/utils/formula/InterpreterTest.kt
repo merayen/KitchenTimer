@@ -45,4 +45,30 @@ internal class InterpreterTest {
             assertEquals((expected * 1000000).toLong() / 1000000.0, (interpreter.registry["a"]!! * 1000000).toLong() / 1000000.0, "Formula: $formula")
         }
     }
+
+    @Test
+    @Order(4)
+    fun parenthesis() {
+        val interpreter = Interpreter()
+        interpreter.run("[a] = 4 * (7 + 3) / 2")
+
+        assertEquals(4 * (7 + 3) / 2.0, interpreter.registry["a"])
+    }
+
+    @Test
+    @Order(5)
+    fun `evaluate code block using variables`() {
+        val interpreter = Interpreter()
+        interpreter.run("""
+            [a] = 2
+            [b] = 1 + [a]
+            [c] = [b]^2
+            [d] = 3 * (2 + [b]^(1 / [a])) - 4 / 2
+        """.trimIndent())
+
+        assertEquals(2.0, interpreter.registry["a"])
+        assertEquals(3.0, interpreter.registry["b"])
+        assertEquals(9.0, interpreter.registry["c"])
+        assertEquals(3  * (2 + 3.0.pow(1 / 2.0)) - 4 / 2.0, interpreter.registry["d"])
+    }
 }

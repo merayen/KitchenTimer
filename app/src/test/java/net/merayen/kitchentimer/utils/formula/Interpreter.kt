@@ -22,6 +22,23 @@ class Interpreter {
     val registry = HashMap<String, Double>()
 
     /**
+     * Run a complete math formula script.
+     */
+    fun run(codeBlock: String) {
+        for (code in codeBlock.split("\n")) {
+            if (code.trim().isEmpty())
+                continue
+
+            val token = parse(code)
+
+            if (token !is Statement)
+                throw InterpreterError("Only statements can be run in a code block")
+
+            run(token)
+        }
+    }
+
+    /**
      * Runs a Statement and stores the result into the registry.
      */
     fun run(statement: Statement) {
