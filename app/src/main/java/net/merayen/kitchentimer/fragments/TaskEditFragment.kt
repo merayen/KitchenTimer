@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.TaskEditViewModel
 
 class TaskEditFragment : Fragment() {
-
     companion object {
         fun newInstance() = TaskEditFragment()
     }

@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
             val newTab = when (position) {
                 0 -> WorkbenchTab::class.java
                 1 -> ItemSetupTab::class.java
-                2 -> TaskSetupTab::class.java
+                2 -> RecipesTab::class.java
                 3 -> StorageTab::class.java
                 else -> throw RuntimeException()
             }

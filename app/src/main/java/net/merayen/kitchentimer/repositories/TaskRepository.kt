@@ -12,4 +12,6 @@ class TaskRepository @Inject constructor(
     fun save(task: Task) = taskDao.save(task)
     fun get(ids: List<Int>) = taskDao.get(ids)
     fun get(id: Int) = taskDao.get(id)
+    fun getRecipes() = taskDao.getRecipes()
+    fun getByDependency(parent: Int) = taskDao.getByDependency(parent)
 }
