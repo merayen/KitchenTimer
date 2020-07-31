@@ -48,7 +48,7 @@ class ItemEditFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val view = view!!
+        val view = requireView()
 
         view.findViewById<EditText>(R.id.itemName).addTextChangedListener {
             val item = viewModel.get()
