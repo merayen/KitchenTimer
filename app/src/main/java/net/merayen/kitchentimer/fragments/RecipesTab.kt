@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -109,7 +108,6 @@ private class RecipeFrame(private val recipesTab: RecipesTab) {
 
     fun edit(recipe: Int) {
         recipesTab.viewModel.getRecipe(recipe).observe(recipesTab.viewLifecycleOwner, Observer {
-            val tabs = recipesTab.view?.findViewById<TabLayout>(R.id.recipe_edit_tabs)
             println("Supposed to edit this one: $it")
         })
     }

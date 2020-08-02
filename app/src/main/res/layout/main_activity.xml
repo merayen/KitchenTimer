@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -117,12 +116,31 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/runningTimers"
-            android:name="net.merayen.kitchentimer.fragments.RunningTimersListFragment"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/runningTimers"
+                android:name="net.merayen.kitchentimer.fragments.RunningTimersListFragment"
+                android:layout_width="wrap_content"
+                android:background="#F0AA10"
+                android:layout_height="match_parent" />
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="#F00A10" />
+
+            <TextView
+                android:id="@+id/quick_timers_button"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="#F0AAF0"
+                android:textAlignment="center"
+                android:text="Quick Timers" />
+
+        </RelativeLayout>
     </LinearLayout>
-
 </FrameLayout>
