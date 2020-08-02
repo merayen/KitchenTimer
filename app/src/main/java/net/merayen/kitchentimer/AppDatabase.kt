@@ -47,8 +47,8 @@ abstract class AppDatabase : RoomDatabase() {
 
                     db.recipeDao().save(Recipe(1, "Pannekaker", "Fantastisk gode pannekaker med en touch av hvetemel og egg. Kokkens anbefaling.", 5))
 
-                    db.runningTaskDao().save(RunningTask(1, 1, elapsed = 83))
-                    db.runningTaskDao().save(RunningTask(2, 4, elapsed = 343))
+                    db.runningTaskDao().save(RunningTask(1, 1, "Koke poteter", elapsed = 83))
+                    db.runningTaskDao().save(RunningTask(2, 4, "Varme teppan", elapsed = 343))
                 }
             }
         }

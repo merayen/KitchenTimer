@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -58,6 +59,8 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
         })
 
         selectTab(0)
+
+        findViewById<TextView>(R.id.quick_timers_button).setOnClickListener { selectTab(4) }
     }
 
     override fun onAttachFragment(fragment: Fragment) {
@@ -79,6 +82,7 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
                 1 -> ItemSetupTab::class.java
                 2 -> RecipesTab::class.java
                 3 -> StorageTab::class.java
+                4 -> QuickTimersTab::class.java
                 else -> throw RuntimeException()
             }
 
