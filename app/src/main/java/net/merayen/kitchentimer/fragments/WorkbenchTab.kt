@@ -1,5 +1,6 @@
 package net.merayen.kitchentimer.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,14 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.data.RunningTask
+import net.merayen.kitchentimer.livedata.RunningTaskData
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
 
 class WorkbenchTab : Fragment() {
     private val viewModel by viewModels<WorkbenchTabViewModel>()
+    private var listener: RunningTimersListFragment.OnListFragmentInteractionListener? = null
 
     class RunningTaskListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
-        var runningTasks: List<RunningTask>? = ArrayList()
+        private var items: List<RunningTaskData> = ArrayList()
 
         private val mOnClickListener: View.OnClickListener
         var onItemClick: (() -> Unit)? = null
@@ -41,16 +43,15 @@ class WorkbenchTab : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return 3
+            return items.size
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.mView.findViewById<TextView>(R.id.name).text = items[position].taskName
+        }
 
-            holder.mView.findViewById<TextView>(R.id.name).text = arrayOf(
-                "Skrell poteter",
-                "Stek kjøttkaker",
-                "Kok poteter"
-            )[position]
+        fun setItems(items: List<RunningTaskData>) {
+            this.items = items
         }
     }
 
@@ -78,7 +79,12 @@ class WorkbenchTab : Fragment() {
         val taskList = view.findViewById<RecyclerView>(R.id.taskList)
         with(taskList) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = RunningTaskListRecyclerViewAdapter()
+            val adapter = RunningTaskListRecyclerViewAdapter()
+            this.adapter = adapter
+
+            viewModel.runningTasks.observe(viewLifecycleOwner, Observer {
+                adapter.setItems(it)
+            })
         }
 
         return view
@@ -88,7 +94,7 @@ class WorkbenchTab : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val showRunningTaskId = showRunningTaskId
-        if (showRunningTaskId != null) {
+        if (showRunningTaskId != null) { // TODO move out in a separate method? Trigger it from item clicked on the left
             val noe = view
             val textView = noe!!.findViewById<TextView>(R.id.debugText)
 
@@ -102,6 +108,14 @@ class WorkbenchTab : Fragment() {
             })
 
             this.showRunningTaskId = null
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is RunningTimersListFragment.OnListFragmentInteractionListener) {
+            listener = context
         }
     }
 

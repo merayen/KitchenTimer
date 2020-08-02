@@ -19,11 +19,10 @@ interface RunningTaskDao {
             t.id AS taskId,
             t.name AS taskName
         FROM RunningTask r
-        JOIN Task t
-        WHERE r.task = t.id
+        JOIN Task t ON t.id = r.task
         """
     )
-    fun getWithTasks(): LiveData<List<RunningTaskData>>
+    fun getRunningTaskData(): LiveData<List<RunningTaskData>>
 
     @Query("SELECT * FROM RunningTask WHERE id = (:ids)")
     fun get(ids: List<Int>): LiveData<List<RunningTask>>

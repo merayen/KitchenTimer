@@ -11,7 +11,7 @@ class RunningTaskRepository @Inject constructor(
 ) {
     fun save(runningTask: RunningTask) = runningTaskDao.save(runningTask)
     fun get(id: Int) = runningTaskDao.get(id)
-    fun getWithTasks() = runningTaskDao.getWithTasks()
+    fun getRunningTaskData() = runningTaskDao.getRunningTaskData()
     fun getRunningTaskData(id: Int) = runningTaskDao.getRunningTaskData(id)
     fun get() = runningTaskDao.get()
 }
