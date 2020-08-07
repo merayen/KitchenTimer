@@ -1,3 +1,0 @@
-- Layout Viewer
-	- Viser layout i kjørende app
-- 
