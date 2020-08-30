@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.queries
+package net.merayen.kitchentimer.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import net.merayen.kitchentimer.data.Item
-import net.merayen.kitchentimer.data.Task
 
 @Dao
 interface ItemDao {

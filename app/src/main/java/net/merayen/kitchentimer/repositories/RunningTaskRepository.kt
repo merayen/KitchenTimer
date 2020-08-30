@@ -1,7 +1,7 @@
 package net.merayen.kitchentimer.repositories
 
 import net.merayen.kitchentimer.data.RunningTask
-import net.merayen.kitchentimer.queries.RunningTaskDao
+import net.merayen.kitchentimer.dao.RunningTaskDao
 import javax.inject.Inject
 import javax.inject.Singleton
 

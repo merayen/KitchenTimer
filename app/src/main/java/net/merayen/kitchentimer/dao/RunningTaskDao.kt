@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.queries
+package net.merayen.kitchentimer.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

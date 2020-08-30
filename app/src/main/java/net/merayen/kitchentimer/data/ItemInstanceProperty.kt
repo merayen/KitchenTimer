@@ -7,8 +7,16 @@ import androidx.room.PrimaryKey
  * Property on an instance of an item.
  */
 @Entity
-class ItemInstanceProperty(
+data class ItemInstanceProperty(
     @PrimaryKey val id: Int,
     var name: String,
-    var value: String
-)
+    var value: Float
+) {
+    enum class Type {
+        WEIGHT, // in grams
+        VOLUME, // in milliliters
+        WIDTH, // in millimeters
+        HEIGHT, // in millimeters
+        RADIUS // in millimeters
+    }
+}

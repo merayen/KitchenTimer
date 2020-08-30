@@ -11,10 +11,12 @@ import androidx.room.PrimaryKey
  *
  * @property item The id to the Item this ItemInstance links to
  * @property name Friendly name of the item for the user
+ * @property bestBefore Date when the item is about to go bad, in unix timestamp
  */
 @Entity
 class ItemInstance(
     @PrimaryKey val id: Int,
     var item: Int,
-    var name: String
+    var name: String,
+    var bestBefore: Long? = null
 )

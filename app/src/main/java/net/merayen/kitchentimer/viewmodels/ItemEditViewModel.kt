@@ -11,7 +11,13 @@ import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.repositories.ItemRepository
 
 class ItemEditViewModel(application: Application) : AndroidViewModel(application) {
-    private val itemRepository = ItemRepository(AppDatabase.getDatabase(application).itemDao())
+    private val itemRepository = ItemRepository(
+        AppDatabase.getDatabase(application).itemDao(),
+        AppDatabase.getDatabase(application).itemInstanceDao(),
+        AppDatabase.getDatabase(application).itemInstancePropertyDao(),
+        AppDatabase.getDatabase(application).itemInstanceLocationDao()
+    )
+
     private var currentId: Int? = null
 
     fun save(item: Item) = viewModelScope.launch(Dispatchers.IO) {
