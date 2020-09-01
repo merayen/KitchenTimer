@@ -1,5 +1,6 @@
 package net.merayen.kitchentimer.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,12 @@ import net.merayen.kitchentimer.viewmodels.ItemListViewModel
 private const val ARG_PARAM1 = "param1"
 
 class ItemListFragment : Fragment() {
+    interface Handler {
+        fun onClick(itemId: Int)
+    }
+
+    private var parentHandler: Handler? = null
+
     private var param1: String? = null
     private val viewModel by viewModels<ItemListViewModel>()
 
@@ -54,8 +61,10 @@ class ItemListFragment : Fragment() {
 
             holder.view.findViewById<TextView>(R.id.itemName).text = data.name
 
-            with(holder) {
-                // TODO
+            with(holder.itemView) {
+                setOnClickListener {
+                    parentHandler?.onClick(data.id)
+                }
             }
         }
     }
@@ -82,6 +91,14 @@ class ItemListFragment : Fragment() {
         })
 
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val parentFragment = parentFragment
+        if (parentFragment is Handler)
+            parentHandler = parentFragment
     }
 
     companion object {
