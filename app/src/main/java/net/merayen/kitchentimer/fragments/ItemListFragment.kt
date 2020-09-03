@@ -1,6 +1,9 @@
 package net.merayen.kitchentimer.fragments
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +33,7 @@ class ItemListFragment : Fragment() {
     private var items: ArrayList<Item> = ArrayList()
     private var itemsById: Map<Int, Item> = HashMap()
     private val itemLevel = HashMap<Int, Int>()
+    private var itemSelected = 0
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -57,8 +61,15 @@ class ItemListFragment : Fragment() {
             with(holder.itemView) {
                 setOnClickListener {
                     parentHandler?.onClick(data.id)
+                    itemSelected = data.id
+                    notifyDataSetChanged()
                 }
             }
+
+            if (data.id == itemSelected)
+                holder.view.setBackgroundColor(Color.YELLOW)
+            else
+                holder.view.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
@@ -107,8 +118,6 @@ class ItemListFragment : Fragment() {
                     itemLevel[item.parent] = r
                 }
             }
-
-            println("itemLevel=$itemLevel")
 
             itemList.adapter!!.notifyDataSetChanged()
         })

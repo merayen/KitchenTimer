@@ -66,7 +66,6 @@ class MyRunningTimersListRecyclerViewAdapter(
     }
 
     fun setItems(items: List<RunningTaskData>) {
-        println("Adapter has gotten ${items.size} elements")
         this.items = items
         notifyDataSetChanged()
     }
