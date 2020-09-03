@@ -89,13 +89,10 @@
             android:background="?android:attr/listDivider" />
 
 
-        <androidx.fragment.app.FragmentContainerView
+        <FrameLayout
             android:id="@+id/itemEdit"
-            android:name="net.merayen.kitchentimer.fragments.ItemEditFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.fragment.app.FragmentContainerView>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

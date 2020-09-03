@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.ItemEditViewModel
 
-private const val ARG_PARAM1 = "itemId"
+private const val ITEM_ID = "itemId"
 
 /**
  * A simple [Fragment] subclass.
@@ -21,17 +21,17 @@ private const val ARG_PARAM1 = "itemId"
  * create an instance of this fragment.
  */
 class ItemEditFragment : Fragment() {
-    private var itemId: Int? = null
+    private var itemId = 0
 
     private val viewModel by viewModels<ItemEditViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            itemId = it.getInt(ARG_PARAM1)
-        }
+            itemId = it.getInt(ITEM_ID)
+        } ?: return
 
-        viewModel.get(1).observe(this, Observer {
+        viewModel.get(itemId).observe(this, Observer {
             if (it != null) {
                 view?.findViewById<EditText>(R.id.itemName)?.setText(it.name)
             }
@@ -65,7 +65,7 @@ class ItemEditFragment : Fragment() {
             ItemEditFragment().apply {
                 arguments = Bundle().apply {
                     println("ItemId: $itemId")
-                    putInt(ARG_PARAM1, itemId)
+                    putInt(ITEM_ID, itemId)
                 }
             }
     }
