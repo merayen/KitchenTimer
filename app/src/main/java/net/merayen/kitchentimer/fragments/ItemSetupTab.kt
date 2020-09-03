@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.ItemSetupTabViewModel
@@ -25,6 +25,6 @@ class ItemSetupTab : Fragment(), ItemListFragment.Handler {
     }
 
     override fun onClick(itemId: Int) {
-        view?.findViewById<FragmentContainerView>(R.id.itemEdit)
+        val frag = childFragmentManager.findFragmentById(R.id.itemEdit) as ItemEditFragment
     }
 }
