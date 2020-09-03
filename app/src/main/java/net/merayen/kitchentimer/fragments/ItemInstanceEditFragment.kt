@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.data.ItemInstance
 import net.merayen.kitchentimer.viewmodels.ItemInstanceEditViewModel
 
 private const val ITEM_INSTANCE_ID = "itemInstanceId"
@@ -32,7 +33,8 @@ class ItemInstanceEditFragment : Fragment() {
         } ?: return
 
         viewModel.get(itemInstanceId).observe(this, Observer {
-            if (it != null) {
+            val name = view?.findViewById<EditText>(R.id.itemName)?.text.toString()
+            if (it != null && it.name != name) {
                 view?.findViewById<EditText>(R.id.itemName)?.setText(it.name)
             }
         })
@@ -51,11 +53,16 @@ class ItemInstanceEditFragment : Fragment() {
         val view = requireView()
 
         view.findViewById<EditText>(R.id.itemName).addTextChangedListener {
-            val item = viewModel.get()
-            if (item != null) {
-                item.name = it.toString()
-                viewModel.save(item)
-            }
+            val itemInstanceLiveData = viewModel.get(itemInstanceId)
+            itemInstanceLiveData.observe(viewLifecycleOwner, object : Observer<ItemInstance> {
+                override fun onChanged(item: ItemInstance?) {
+                    if (item != null && item.name != it.toString()) {
+                        item.name = it.toString()
+                        viewModel.save(item)
+                    }
+                    itemInstanceLiveData.removeObserver(this)
+                }
+            })
         }
     }
 

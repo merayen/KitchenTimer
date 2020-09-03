@@ -19,16 +19,11 @@ class ItemInstanceEditViewModel(application: Application) : AndroidViewModel(app
         AppDatabase.getDatabase(application).itemInstanceLocationDao()
     )
 
-    private var currentId: Int? = null
-
-    fun save(item: Item) = viewModelScope.launch(Dispatchers.IO) {
+    fun save(item: ItemInstance) = viewModelScope.launch(Dispatchers.IO) {
         itemRepository.save(item)
     }
 
     fun get(id: Int): LiveData<ItemInstance> {
-        currentId = id
         return itemRepository.getItemInstance(id)
     }
-
-    fun get() = itemRepository.getItem(currentId ?: throw RuntimeException("No id given yet")).value
 }

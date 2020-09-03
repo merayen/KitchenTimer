@@ -2,13 +2,14 @@ package net.merayen.kitchentimer.utils.formula
 
 import kotlin.math.pow
 
-open class InterpreterError(message: String) : RuntimeException(message)
-class VariableNotDefined(name: String) : InterpreterError(name)
 
 /**
  * Interprets a very simple and safe math language that looks like math.
  */
 class Interpreter {
+    open class InterpreterError(message: String) : RuntimeException(message)
+    class VariableNotDefined(name: String) : InterpreterError(name)
+
     companion object {
         val OPERATOR_PRECEDENCE = arrayOf(
             Operator.Type.POW,
