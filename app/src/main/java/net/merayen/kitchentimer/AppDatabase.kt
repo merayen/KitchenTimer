@@ -33,15 +33,19 @@ abstract class AppDatabase : RoomDatabase() {
                 GlobalScope.launch {
                     db!!
 
-                    db.itemDao().save(Item(1, 0, "Kjele"))
-                    db.itemDao().save(Item(2, 0, "Stekepanne"))
-                    db.itemDao().save(Item(3, 0, "Vann"))
-                    db.itemDao().save(Item(4, 0, "Potet"))
+                    db.itemDao().save(Item(1, 0, "Kjeler"))
+                    db.itemDao().save(Item(2, 1, "Stekepanner"))
+                    db.itemDao().save(Item(3, 1, "Karbonpanner"))
+                    db.itemDao().save(Item(4, 0, "Ingredienser"))
+                    db.itemDao().save(Item(5, 4, "Væske"))
+                    db.itemDao().save(Item(6, 5, "Vann"))
+                    db.itemDao().save(Item(7, 4, "Grønnsaker"))
+                    db.itemDao().save(Item(8, 7, "Potet"))
 
-                    db.itemInstanceDao().save(ItemInstance(1, 1, "Kokekjele"))
+                    db.itemInstanceDao().save(ItemInstance(1, 1, "Kjele"))
                     db.itemInstanceDao().save(ItemInstance(2, 1, "Sautekjele"))
 
-                    db.itemInstanceDao().save(ItemInstance(3, 2, "Karbonstålpanne 24cm"))
+                    db.itemInstanceDao().save(ItemInstance(3, 1, "Karbonstålpanne 24cm"))
                     db.itemInstancePropertyDao().save(ItemInstanceProperty(1, ItemInstanceProperty.Type.RADIUS.name, 240f))
                     db.itemInstancePropertyDao().save(ItemInstanceProperty(2, ItemInstanceProperty.Type.HEIGHT.name, 40f))
                     db.itemInstancePropertyDao().save(ItemInstanceProperty(3, ItemInstanceProperty.Type.VOLUME.name, 1000f))
