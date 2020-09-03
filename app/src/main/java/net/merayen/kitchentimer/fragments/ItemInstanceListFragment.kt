@@ -20,7 +20,7 @@ private const val ITEM_ID = "itemId"
 
 class ItemInstanceListFragment : Fragment() {
     interface Handler {
-        fun onClick(itemInstanceId: Int)
+        fun onClickItemInstanceListItem(itemInstanceId: Int)
     }
 
     private var parentHandler: Handler? = null
@@ -55,7 +55,7 @@ class ItemInstanceListFragment : Fragment() {
 
             with(holder.itemView) {
                 setOnClickListener {
-                    parentHandler?.onClick(data.id)
+                    parentHandler?.onClickItemInstanceListItem(data.id)
                     itemSelected = data.id
                     notifyDataSetChanged()
                 }
@@ -117,7 +117,7 @@ class ItemInstanceListFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String) =
-            ItemEditFragment().apply {
+            ItemInstanceEditFragment().apply {
                 arguments = Bundle().apply {
                     putString(ITEM_ID, param1)
                 }

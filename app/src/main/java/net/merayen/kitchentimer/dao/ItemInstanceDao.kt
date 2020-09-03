@@ -13,4 +13,7 @@ interface ItemInstanceDao {
 
     @Query("SELECT * FROM ItemInstance WHERE item = :itemId")
     fun getByItem(itemId: Int): LiveData<List<ItemInstance>>
+
+    @Query("SELECT * FROM ItemInstance WHERE id = :id")
+    fun get(id: Int): LiveData<ItemInstance>
 }

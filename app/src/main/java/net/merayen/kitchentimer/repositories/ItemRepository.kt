@@ -21,6 +21,7 @@ class ItemRepository @Inject constructor(
 ) {
     fun getAllItems() = itemDao.getAll()
     fun getItemInstancesByItem(itemId: Int) = itemInstanceDao.getByItem(itemId)
+    fun getItemInstance(itemInstanceId: Int) = itemInstanceDao.get(itemInstanceId)
 
     fun getItem(id: Int): LiveData<Item> = itemDao.load(id)
 

@@ -11,27 +11,27 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.viewmodels.ItemEditViewModel
+import net.merayen.kitchentimer.viewmodels.ItemInstanceEditViewModel
 
-private const val ITEM_ID = "itemId"
+private const val ITEM_INSTANCE_ID = "itemInstanceId"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ItemEditFragment.newInstance] factory method to
+ * Use the [ItemInstanceEditFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ItemEditFragment : Fragment() {
-    private var itemId = 0
+class ItemInstanceEditFragment : Fragment() {
+    private var itemInstanceId = 0
 
-    private val viewModel by viewModels<ItemEditViewModel>()
+    private val viewModel by viewModels<ItemInstanceEditViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            itemId = it.getInt(ITEM_ID)
+            itemInstanceId = it.getInt(ITEM_INSTANCE_ID)
         } ?: return
 
-        viewModel.get(itemId).observe(this, Observer {
+        viewModel.get(itemInstanceId).observe(this, Observer {
             if (it != null) {
                 view?.findViewById<EditText>(R.id.itemName)?.setText(it.name)
             }
@@ -42,7 +42,7 @@ class ItemEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_item_edit, container, false)
+        return inflater.inflate(R.layout.fragment_item_instance_edit, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,11 +61,10 @@ class ItemEditFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(itemId: Int) =
-            ItemEditFragment().apply {
+        fun newInstance(itemInstanceId: Int) =
+            ItemInstanceEditFragment().apply {
                 arguments = Bundle().apply {
-                    println("ItemId: $itemId")
-                    putInt(ITEM_ID, itemId)
+                    putInt(ITEM_INSTANCE_ID, itemInstanceId)
                 }
             }
     }

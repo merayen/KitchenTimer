@@ -8,9 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.merayen.kitchentimer.AppDatabase
 import net.merayen.kitchentimer.data.Item
+import net.merayen.kitchentimer.data.ItemInstance
 import net.merayen.kitchentimer.repositories.ItemRepository
 
-class ItemEditViewModel(application: Application) : AndroidViewModel(application) {
+class ItemInstanceEditViewModel(application: Application) : AndroidViewModel(application) {
     private val itemRepository = ItemRepository(
         AppDatabase.getDatabase(application).itemDao(),
         AppDatabase.getDatabase(application).itemInstanceDao(),
@@ -24,9 +25,9 @@ class ItemEditViewModel(application: Application) : AndroidViewModel(application
         itemRepository.save(item)
     }
 
-    fun get(id: Int): LiveData<Item> {
+    fun get(id: Int): LiveData<ItemInstance> {
         currentId = id
-        return itemRepository.getItem(id)
+        return itemRepository.getItemInstance(id)
     }
 
     fun get() = itemRepository.getItem(currentId ?: throw RuntimeException("No id given yet")).value

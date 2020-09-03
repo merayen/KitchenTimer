@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
-import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.ItemSetupTabViewModel
 
-class ItemSetupTab : Fragment(), ItemListFragment.Handler {
+class ItemSetupTab : Fragment(), ItemListFragment.Handler, ItemInstanceListFragment.Handler {
     companion object {
         fun newInstance() = ItemSetupTab()
     }
@@ -27,18 +26,20 @@ class ItemSetupTab : Fragment(), ItemListFragment.Handler {
         return inflater.inflate(R.layout.item_setup_tab_fragment, container, false)
     }
 
-    override fun onClick(itemId: Int) {
-        val view = view ?: return
-        val itemEdit = view.findViewById<FrameLayout>(R.id.itemEdit) // TODO should not edit the Item, but the ItemInstance
-
-        //val itemInstanceEdit = view.findViewById<FrameLayout>(R.id.itemInstanceList).getChildAt(0)
+    override fun onClickItemListItem(itemId: Int) {
 
         val itemInstanceEdit = childFragmentManager.findFragmentById(R.id.itemInstanceList) as ItemInstanceListFragment
         itemInstanceEdit.showForItem(itemId)
 
+    }
+
+    override fun onClickItemInstanceListItem(itemInstanceId: Int) {
+        val view = view ?: return
+        val itemEdit = view.findViewById<FrameLayout>(R.id.itemEdit)
+
         childFragmentManager.commit {
             itemEdit.removeAllViews()
-            add(R.id.itemEdit, ItemEditFragment::class.java, bundleOf("itemId" to itemId))
+            add(R.id.itemEdit, ItemInstanceEditFragment::class.java, bundleOf("itemInstanceId" to itemInstanceId))
         }
     }
 }
