@@ -2,8 +2,6 @@ package net.merayen.kitchentimer.fragments
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,22 +13,23 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.data.Item
-import net.merayen.kitchentimer.viewmodels.ItemListViewModel
+import net.merayen.kitchentimer.data.ItemInstance
+import net.merayen.kitchentimer.viewmodels.ItemInstanceListViewModel
 
-class ItemListFragment : Fragment() {
+private const val ITEM_ID = "itemId"
+
+class ItemInstanceListFragment : Fragment() {
     interface Handler {
-        fun onClick(itemId: Int)
+        fun onClick(itemInstanceId: Int)
     }
 
     private var parentHandler: Handler? = null
 
-    private var param1: String? = null
-    private val viewModel by viewModels<ItemListViewModel>()
+    private val viewModel by viewModels<ItemInstanceListViewModel>()
 
-    private var items: ArrayList<Item> = ArrayList()
-    private var itemsById: Map<Int, Item> = HashMap()
-    private val itemLevel = HashMap<Int, Int>()
+    private var itemId = 0
+    private var items: List<ItemInstance> = ArrayList()
+    private var itemsById: Map<Int, ItemInstance> = HashMap()
     private var itemSelected = 0
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
@@ -41,7 +40,7 @@ class ItemListFragment : Fragment() {
                 // Instantiates the fragment_task_list layout xml for each item in the list
                 LayoutInflater
                     .from(parent.context)
-                    .inflate(R.layout.fragment_item_list_list_item, parent, false)
+                    .inflate(R.layout.fragment_item_instance_list_item, parent, false)
             )
         }
 
@@ -53,8 +52,6 @@ class ItemListFragment : Fragment() {
             with(holder.view.findViewById<TextView>(R.id.itemName)) {
                 text = data.name
             }
-
-            holder.view.setPadding(itemLevel[data.parent]!! * 10, 0, 0, 0)
 
             with(holder.itemView) {
                 setOnClickListener {
@@ -73,50 +70,22 @@ class ItemListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {}
+        arguments?.let {
+            itemId = it.getInt("itemId")
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        val itemList = view.findViewById<RecyclerView>(R.id.itemList)
+        val view = inflater.inflate(R.layout.fragment_item_instance_list, container, false)
+        val itemList = view.findViewById<RecyclerView>(R.id.itemInstanceListRecyclerView)
 
         with(itemList) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = MyAdapter()
         }
 
-        viewModel.get().observe(viewLifecycleOwner, Observer {
-            // Recursive sorting for display
-            items.clear()
-            fun p(parent: Int = 0, level: Int = 0) {
-                for (item in it) {
-                    if (item.parent == parent) {
-                        items.add(item)
-                        p(item.id, level + 1)
-                    }
-                }
-            }
-            p()
-
-            itemsById = it.map { it.id to it }.toMap()
-
-            itemLevel.clear()
-            itemLevel[0] = 0
-            for (item in items) {
-                if (item.parent !in itemLevel) {
-                    var current = item
-                    var r = 0
-                    while (current.parent != 0) {
-                        current = itemsById[current.parent] ?: throw RuntimeException("Should not happen")
-                        r++
-                    }
-
-                    itemLevel[item.parent] = r
-                }
-            }
-
-            itemList.adapter!!.notifyDataSetChanged()
-        })
+        if (itemId != 0)
+            showForItem(itemId)
 
         return view
     }
@@ -129,11 +98,29 @@ class ItemListFragment : Fragment() {
             parentHandler = parentFragment
     }
 
+    fun showForItem(itemId: Int) {
+        this.itemId = itemId
+        load()
+    }
+
+    private fun load() {
+        val view = view ?: return
+        val itemList = view.findViewById<RecyclerView>(R.id.itemInstanceListRecyclerView)
+
+        viewModel.getByItem(itemId).observe(viewLifecycleOwner, Observer {
+            items = it
+            itemsById = it.map { it.id to it }.toMap()
+            itemList.adapter!!.notifyDataSetChanged()
+        })
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(param1: String) =
             ItemEditFragment().apply {
-                arguments = Bundle().apply {}
+                arguments = Bundle().apply {
+                    putString(ITEM_ID, param1)
+                }
             }
     }
 }

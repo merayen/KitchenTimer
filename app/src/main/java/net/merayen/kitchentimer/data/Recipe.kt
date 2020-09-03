@@ -13,11 +13,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(
     foreignKeys = [
-        ForeignKey(
-            entity = Task::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("task")
-        )
+        ForeignKey(entity = Task::class, parentColumns = arrayOf("id"), childColumns = arrayOf("task"))
     ]
 )
 data class Recipe(

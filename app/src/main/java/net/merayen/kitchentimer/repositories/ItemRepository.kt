@@ -20,6 +20,7 @@ class ItemRepository @Inject constructor(
     private val itemInstanceLocationDao: ItemInstanceLocationDao
 ) {
     fun getAllItems() = itemDao.getAll()
+    fun getItemInstancesByItem(itemId: Int) = itemInstanceDao.getByItem(itemId)
 
     fun getItem(id: Int): LiveData<Item> = itemDao.load(id)
 

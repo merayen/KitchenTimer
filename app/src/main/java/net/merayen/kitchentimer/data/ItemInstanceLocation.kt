@@ -9,16 +9,8 @@ import androidx.room.PrimaryKey
  */
 @Entity(
     foreignKeys = [
-        ForeignKey(
-            entity = ItemInstance::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("itemInstance")
-        ),
-        ForeignKey(
-            entity = ItemInstance::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("location")
-        )
+        ForeignKey(entity = ItemInstance::class, parentColumns = arrayOf("id"), childColumns = arrayOf("itemInstance")),
+        ForeignKey(entity = ItemInstance::class, parentColumns = arrayOf("id"), childColumns = arrayOf("location"))
     ]
 )
 class ItemInstanceLocation(
