@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_item_list.view.*
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.viewmodels.ItemListViewModel
@@ -28,18 +27,14 @@ class ItemListFragment : Fragment() {
     private var param1: String? = null
     private val viewModel by viewModels<ItemListViewModel>()
 
-    private var items: List<Item> = ArrayList()
+    private var items: ArrayList<Item> = ArrayList()
+    private var itemsById: Map<Int, Item> = HashMap()
+    private val itemLevel = HashMap<Int, Int>()
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     inner class MyAdapter : RecyclerView.Adapter<MyViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-            viewModel.get().observe(viewLifecycleOwner, Observer {
-                items = it
-                println("Loaded data: ${items.size}")
-                notifyDataSetChanged()
-            })
-
             return MyViewHolder(
                 // Instantiates the fragment_task_list layout xml for each item in the list
                 LayoutInflater
@@ -48,18 +43,16 @@ class ItemListFragment : Fragment() {
             )
         }
 
-        override fun getItemCount(): Int {
-            println("Got size: ${items.size}")
-            return items.size
-        }
+        override fun getItemCount() = items.size
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            println("MyAdapter position: $position")
-            println(holder.view.itemList)
-
             val data = items[position]
 
-            holder.view.findViewById<TextView>(R.id.itemName).text = data.name
+            with(holder.view.findViewById<TextView>(R.id.itemName)) {
+                text = data.name
+            }
+
+            holder.view.setPadding(itemLevel[data.parent]!! * 10, 0, 0, 0)
 
             with(holder.itemView) {
                 setOnClickListener {
@@ -86,7 +79,37 @@ class ItemListFragment : Fragment() {
         }
 
         viewModel.get().observe(viewLifecycleOwner, Observer {
-            items = it
+            // Recursive sorting for display
+            items.clear()
+            fun p(parent: Int = 0, level: Int = 0) {
+                for (item in it) {
+                    if (item.parent == parent) {
+                        items.add(item)
+                        p(item.id, level + 1)
+                    }
+                }
+            }
+            p()
+
+            itemsById = it.map { it.id to it }.toMap()
+
+            itemLevel.clear()
+            itemLevel[0] = 0
+            for (item in items) {
+                if (item.parent !in itemLevel) {
+                    var current = item
+                    var r = 0
+                    while (current.parent != 0) {
+                        current = itemsById[current.parent] ?: throw RuntimeException("Should not happen")
+                        r++
+                    }
+
+                    itemLevel[item.parent] = r
+                }
+            }
+
+            println("itemLevel=$itemLevel")
+
             itemList.adapter!!.notifyDataSetChanged()
         })
 
