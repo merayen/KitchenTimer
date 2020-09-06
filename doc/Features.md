@@ -1,19 +1,18 @@
 # Features
-
-Features of the KitchenTimer, written down using text as the communication method, in a format called Markdown.
+Features of the feature-bloated KitchenTimer.
 
 ## Kitchen timer
-It is a kitchen timer, where the user mostly does not input any time, but uses the timers that are in the recipe.
-User can then challenge himself by breaking his own records trying to be an effective chef, hopefully not sacrificing
-the taste.
+It is a kitchen timer, where the user chooses a recipe to cook and follows all the instructions at the screen, checking
+all the finished tasks. This helps the chef not forgetting any ingredient or steps.
+
+User can challenge him/herself by breaking own records trying to be an effective chef, hopefully not sacrificing
+the taste or adding finger tips to the food.
 
 ## Recipes
-Contain a list of recipes that contains instructions (called "tasks") and the required amount of ingredients.
+Contains a list of recipes with instructions (called "tasks") and the required amount of ingredients.
 
 ### Timing
-The app plans how to cook the recipe, in what order instructions gets laid out, and the time all the stages will take.
-
-When user starts a recipe, 
+The app plans how to cook the recipe, in what order instructions should be executed and the time all the stages will take.
 
 ### Multiple recipes
 Support for running multiple recipes, meaning the user can do multiple recipes at once. The app will automatically try
@@ -23,7 +22,7 @@ to plan so that the recipes gets finished almost at the same time.
 Track the amount of ingredients available and where it is located.
 
 ### Best before support
-When user adds an amount of an ingredient to his kitchen (freezer, fridge etc), he registers it into the app
+When user adds an amount of an ingredient to his kitchen (freezer, fridge etc), user registers it into the app
 with the date when it will go bad.
 
 ## Cooking tools
@@ -44,7 +43,8 @@ using notifications when user does not use the app.
 Tools and ingredients can have defined parameters that says which other parameter they interact with, and how they
 interact, and their own value.
 
-These formulas calculate when selecting a recipe, so that the user can see details on what needs to be done.
+These formulas gets calculated when selecting a recipe, so that the chef can see details on what needs to be done
+and that equipment is required/best suited for the different tasks (pans-size, induction wattage etc).
 
 ### Parameter operators
 - `+`
@@ -53,11 +53,12 @@ These formulas calculate when selecting a recipe, so that the user can see detai
 - `/`
 - `Max`
 - `Min`
+- `Pow`
 
 ### Validation
 Every item has a formula that validates if it can be used. E.g, when the app tries to figure out if a tool can be used
 to boil 10 liters of water, the tool runs its (and the ingredients) formula against each other and creates a
 list of all the possible tools that can be used. From there the app sorts the tools (and ingredients?) by how it
 matches (the `requires`-formula in each Task, which is what the formulas output, telling how compatible the task is with
-the available items (ingredients and tools).
+the available items (ingredients and tools)).
 
