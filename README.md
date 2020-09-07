@@ -3,5 +3,3 @@ An over-engineered kitchen timer to learn Android programming and to actually en
 recipes, executing recipes and keep the fridge and freezer tidy using the logistics feature.
 
 Look at its features here: [Features](doc/Features.md)
-
-Issue/task tracking here: [Tasks](doc/tasks/)
