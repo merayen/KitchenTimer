@@ -18,11 +18,11 @@ data class ItemInstanceProperty(
     var name: String,
     var value: Float
 ) {
-    enum class Type {
-        WEIGHT, // in grams
-        VOLUME, // in milliliters
-        WIDTH, // in millimeters
-        HEIGHT, // in millimeters
-        RADIUS // in millimeters
+    enum class Type(val unit: String) {
+        WEIGHT("g"),
+        VOLUME("ml"),
+        WIDTH("mm"),
+        HEIGHT("mm"),
+        RADIUS("mm")
     }
 }

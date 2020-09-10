@@ -2,14 +2,19 @@
 Features of the feature-bloated KitchenTimer.
 
 ## Kitchen timer
-It is a kitchen timer, where the user chooses a recipe to cook and follows all the instructions at the screen, checking
-all the finished tasks. This helps the chef not forgetting any ingredient or steps.
+Kitchen app to aid the chef(s) to cook and give instructions at the screen for the chef to follow.
+Chef then checks off task-by-task when progressing. This helps the chef not forgetting any ingredient or steps
+and keeps a record of available ingredients in the storage and utensils.
 
 User can challenge him/herself by breaking own records trying to be an effective chef, hopefully not sacrificing
 the taste or adding finger tips to the food.
 
 ## Recipes
 Contains a list of recipes with instructions (called "tasks") and the required amount of ingredients.
+
+## Menu
+App has a "Menu mode" that are meant for guests. An Android tablet will be sent among the guests where they can order
+dishes, read the ingredients and allergies, and maybe calorie count.
 
 ### Timing
 The app plans how to cook the recipe, in what order instructions should be executed and the time all the stages will take.
@@ -20,6 +25,8 @@ to plan so that the recipes gets finished almost at the same time.
 
 ## Ingredient storage
 Track the amount of ingredients available and where it is located.
+
+When cooking recipes, app automatically 
 
 ### Best before support
 When user adds an amount of an ingredient to his kitchen (freezer, fridge etc), user registers it into the app
