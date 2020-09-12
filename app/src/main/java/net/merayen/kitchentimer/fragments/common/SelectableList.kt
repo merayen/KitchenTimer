@@ -95,8 +95,9 @@ class SelectableList : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is Handler)
-            handler = context
+        val parentFragment = parentFragment
+        if (parentFragment is Handler)
+            handler = parentFragment // Is this good...?
     }
 
     fun applyData(newItems: List<NamedItem>) {
@@ -122,9 +123,7 @@ class SelectableList : Fragment() {
         itemLevel.clear()
         itemLevel[0] = 0
         for (item in items) {
-            if (item !is TreeItem) {
-                itemLevel[item.id] = 0
-            } else if (item.parent !in itemLevel) {
+            if (item is TreeItem && item.parent !in itemLevel) {
                 var current = item as TreeItem
                 var r = 0
                 while (current.parent != 0) {

@@ -9,10 +9,13 @@ import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.data.NamedItem
+import net.merayen.kitchentimer.fragments.common.SelectableList
 import net.merayen.kitchentimer.viewmodels.ItemSetupTabViewModel
 
-class ItemSetupTab : Fragment(), ItemListFragment.Handler, ItemInstanceListFragment.Handler {
+class ItemSetupTab : Fragment(), SelectableList.Handler, ItemInstanceListFragment.Handler {
     companion object {
         fun newInstance() = ItemSetupTab()
     }
@@ -26,9 +29,20 @@ class ItemSetupTab : Fragment(), ItemListFragment.Handler, ItemInstanceListFragm
         return inflater.inflate(R.layout.item_setup_tab_fragment, container, false)
     }
 
-    override fun onClickItemListItem(itemId: Int) {
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        if (childFragment is SelectableList) {
+            if (childFragment.id == R.id.itemList) {
+                viewModel.getItems().observe(viewLifecycleOwner, Observer {
+                    childFragment.applyData(it)
+                })
+            }
+        }
+    }
+
+    override fun onClick(item: NamedItem) {
         val itemInstanceEdit = childFragmentManager.findFragmentById(R.id.itemInstanceList) as ItemInstanceListFragment
-        itemInstanceEdit.showForItem(itemId)
+        itemInstanceEdit.showForItem(item.id)
 
         val view = view ?: return
         val itemEdit = view.findViewById<FrameLayout>(R.id.itemEdit)

@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/itemList"
-        android:name="net.merayen.kitchentimer.fragments.ItemListFragment"
+        android:name="net.merayen.kitchentimer.fragments.common.SelectableList"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:orientation="vertical" />
