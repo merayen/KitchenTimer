@@ -11,11 +11,13 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.data.Item
+import net.merayen.kitchentimer.data.ItemInstance
 import net.merayen.kitchentimer.data.NamedItem
 import net.merayen.kitchentimer.fragments.common.SelectableList
 import net.merayen.kitchentimer.viewmodels.ItemSetupTabViewModel
 
-class ItemSetupTab : Fragment(), SelectableList.Handler, ItemInstanceListFragment.Handler {
+class ItemSetupTab : Fragment(), SelectableList.Handler {
     companion object {
         fun newInstance() = ItemSetupTab()
     }
@@ -32,30 +34,41 @@ class ItemSetupTab : Fragment(), SelectableList.Handler, ItemInstanceListFragmen
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is SelectableList) {
-            if (childFragment.id == R.id.itemList) {
-                viewModel.getItems().observe(viewLifecycleOwner, Observer {
-                    childFragment.applyData(it)
-                })
+            when (childFragment.id) {
+                R.id.itemList -> {
+                    viewModel.getItems().observe(viewLifecycleOwner, Observer {
+                        childFragment.applyData(it)
+                    })
+                }
+                R.id.itemInstanceList -> {
+                    // We load item instance list only when one has been selected in the item list, so no loading here
+                }
             }
         }
     }
 
     override fun onClick(item: NamedItem) {
-        val itemInstanceEdit = childFragmentManager.findFragmentById(R.id.itemInstanceList) as ItemInstanceListFragment
-        itemInstanceEdit.showForItem(item.id)
-
-        val view = view ?: return
-        val itemEdit = view.findViewById<FrameLayout>(R.id.itemEdit)
-        itemEdit.removeAllViews()
-    }
-
-    override fun onClickItemInstanceListItem(itemInstanceId: Int) {
         val view = view ?: return
         val itemEdit = view.findViewById<FrameLayout>(R.id.itemEdit)
 
-        childFragmentManager.commit {
-            itemEdit.removeAllViews()
-            add(R.id.itemEdit, ItemInstanceEditFragment::class.java, bundleOf("itemInstanceId" to itemInstanceId))
+        when (item) {
+            is Item -> {
+                viewModel.getItemInstances(item.id).observe(viewLifecycleOwner, Observer {
+                    (childFragmentManager.findFragmentById(R.id.itemInstanceList) as SelectableList).applyData(it)
+                })
+
+                itemEdit.removeAllViews()
+            }
+            is ItemInstance -> {
+                childFragmentManager.commit {
+                    itemEdit.removeAllViews()
+                    add(
+                        R.id.itemEdit,
+                        ItemInstanceEditFragment::class.java,
+                        bundleOf("itemInstanceId" to item.id)
+                    )
+                }
+            }
         }
     }
 }

@@ -20,7 +20,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/itemInstanceList"
-        android:name="net.merayen.kitchentimer.fragments.ItemInstanceListFragment"
+        android:name="net.merayen.kitchentimer.fragments.common.SelectableList"
         android:layout_width="200dp"
         android:layout_height="match_parent" />
 

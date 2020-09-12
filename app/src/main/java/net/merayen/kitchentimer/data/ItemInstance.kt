@@ -15,8 +15,8 @@ import androidx.room.PrimaryKey
  */
 @Entity
 class ItemInstance(
-    @PrimaryKey val id: Int,
+    @PrimaryKey override val id: Int,
     var item: Int,
-    var name: String,
+    override var name: String,
     var bestBefore: Long? = null
-)
+) : NamedItem
