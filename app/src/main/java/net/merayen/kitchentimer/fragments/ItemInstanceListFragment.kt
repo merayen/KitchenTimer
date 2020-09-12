@@ -61,10 +61,13 @@ class ItemInstanceListFragment : Fragment() {
                 }
             }
 
-            if (data.id == itemSelected)
-                holder.view.setBackgroundColor(Color.YELLOW)
-            else
+            if (data.id == itemSelected) {
+                holder.view.setBackgroundColor(Color.BLACK)
+                holder.view.findViewById<TextView>(R.id.itemName).setTextColor(Color.WHITE)
+            } else {
                 holder.view.setBackgroundColor(Color.TRANSPARENT)
+                holder.view.findViewById<TextView>(R.id.itemName).setTextColor(Color.BLACK)
+            }
         }
     }
 
