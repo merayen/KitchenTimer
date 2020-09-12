@@ -17,8 +17,8 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Recipe(
-    @PrimaryKey val id: Int,
-    @ColumnInfo val name: String,
+    @PrimaryKey override val id: Int,
+    @ColumnInfo override val name: String,
     @ColumnInfo val description: String,
     @ColumnInfo val task: Int
-)
+) : NamedItem

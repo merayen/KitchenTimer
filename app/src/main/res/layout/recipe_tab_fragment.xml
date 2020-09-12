@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RecipesTab">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/taskList"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/recipe_list"
+        android:name="net.merayen.kitchentimer.fragments.common.SelectableList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        tools:listitem="@layout/task_setup_tab_item_fragment" />
+        android:layout_weight="2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:id="@+id/recipe_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Should show the name of the recipe"/>
+                android:text="Should show the name of the recipe" />
 
         </FrameLayout>
 
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Should show a list of required tools and ingredients (items)"/>
+                android:text="Should show a list of required tools and ingredients (items)" />
         </FrameLayout>
 
         <FrameLayout
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="List of required tasks"/>
+                android:text="List of required tasks" />
         </FrameLayout>
 
     </LinearLayout>
