@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.data.ItemInstanceProperty
+import net.merayen.kitchentimer.viewmodels.ItemInstanceEditViewModel
+import net.merayen.kitchentimer.viewmodels.ItemInstancePropertyListViewModel
+
+private const val ITEM_INSTANCE_ID = "itemInstanceId"
 
 /**
  * Denne skal vise en liste over alle properties på en ItemInstance. Redigering
@@ -54,8 +59,15 @@ class ItemInstancePropertyListFragment : Fragment() {
         }
     }
 
+    private val viewModel by viewModels<ItemInstancePropertyListViewModel>()
+
+    private var itemInstanceId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            itemInstanceId = it.getInt(ITEM_INSTANCE_ID)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -69,6 +81,8 @@ class ItemInstancePropertyListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = MyAdapter()
         }
+
+        viewModel.getItemInstanceProperties(itemInstanceId)
 
         return view
     }
