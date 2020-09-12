@@ -27,10 +27,12 @@ class ItemSetupTab : Fragment(), ItemListFragment.Handler, ItemInstanceListFragm
     }
 
     override fun onClickItemListItem(itemId: Int) {
-
         val itemInstanceEdit = childFragmentManager.findFragmentById(R.id.itemInstanceList) as ItemInstanceListFragment
         itemInstanceEdit.showForItem(itemId)
 
+        val view = view ?: return
+        val itemEdit = view.findViewById<FrameLayout>(R.id.itemEdit)
+        itemEdit.removeAllViews()
     }
 
     override fun onClickItemInstanceListItem(itemInstanceId: Int) {
