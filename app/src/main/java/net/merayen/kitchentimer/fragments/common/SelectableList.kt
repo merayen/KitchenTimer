@@ -100,6 +100,21 @@ class SelectableList : Fragment() {
             handler = parentFragment // Is this good...?
     }
 
+    fun unselect() {
+        if (itemSelected == 0)
+            return
+
+        val itemSelected = itemSelected
+        this.itemSelected = 0
+
+        val itemList = view?.findViewById<RecyclerView>(R.id.list)
+        if (itemList != null) {
+            val index = items.indexOfFirst { it.id == itemSelected }
+            if (index > -1)
+                itemList.adapter?.notifyItemChanged(index)
+        }
+    }
+
     fun applyData(newItems: List<NamedItem>) {
         if (newItems.map { it.javaClass }.toSet().size > 1)
             throw RuntimeException("Mix of types in data. Not allowed")

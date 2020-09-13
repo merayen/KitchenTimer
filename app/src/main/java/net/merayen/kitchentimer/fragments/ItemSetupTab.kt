@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.data.Item
@@ -23,6 +24,8 @@ class ItemSetupTab : Fragment(), SelectableList.Handler {
     }
 
     private val viewModel by viewModels<ItemSetupTabViewModel>()
+
+    private var itemInstancesObserver: Observer<LiveData<List<ItemInstance>>>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +56,10 @@ class ItemSetupTab : Fragment(), SelectableList.Handler {
 
         when (item) {
             is Item -> {
-                viewModel.getItemInstances(item.id).observe(viewLifecycleOwner, Observer {
-                    (childFragmentManager.findFragmentById(R.id.itemInstanceList) as SelectableList).applyData(it)
+                val itemInstanceList = (childFragmentManager.findFragmentById(R.id.itemInstanceList) as SelectableList)
+                itemInstanceList.unselect()
+                viewModel.getItemInstances(viewLifecycleOwner, item.id, Observer {
+                    itemInstanceList.applyData(it)
                 })
 
                 itemEdit.removeAllViews()
