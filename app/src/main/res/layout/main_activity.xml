@@ -122,7 +122,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/runningTimers"
-                android:name="net.merayen.kitchentimer.fragments.RunningTimersListFragment"
+                android:name="net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@id/divider8"
                 android:layout_width="wrap_content"
