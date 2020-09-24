@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.workbench
 
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +9,7 @@ import android.widget.TextView
 import net.merayen.kitchentimer.R
 
 
-import net.merayen.kitchentimer.fragments.RunningTimersListFragment.OnListFragmentInteractionListener
+import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment.OnListFragmentInteractionListener
 
 import kotlinx.android.synthetic.main.fragment_running_timers_list.view.*
 import net.merayen.kitchentimer.livedata.RunningTaskData

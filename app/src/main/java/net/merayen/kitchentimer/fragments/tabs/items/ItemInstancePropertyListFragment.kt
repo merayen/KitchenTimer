@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.items
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.data.ItemInstanceProperty
-import net.merayen.kitchentimer.viewmodels.ItemInstanceEditViewModel
 import net.merayen.kitchentimer.viewmodels.ItemInstancePropertyListViewModel
 
 private const val ITEM_INSTANCE_ID = "itemInstanceId"

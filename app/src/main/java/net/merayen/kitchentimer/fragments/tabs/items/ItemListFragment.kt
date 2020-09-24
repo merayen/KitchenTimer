@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.items
 
 import android.content.Context
 import android.graphics.Color

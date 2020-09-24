@@ -1,12 +1,11 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.storage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.viewmodels.StorageTabViewModel
 

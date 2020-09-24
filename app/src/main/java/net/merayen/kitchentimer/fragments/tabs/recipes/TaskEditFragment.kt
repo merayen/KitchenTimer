@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.recipes
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

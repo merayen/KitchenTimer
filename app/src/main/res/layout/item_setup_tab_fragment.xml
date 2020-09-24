@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.ItemSetupTab">
+    tools:context=".fragments.tabs.items.ItemSetupTab">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/itemList"

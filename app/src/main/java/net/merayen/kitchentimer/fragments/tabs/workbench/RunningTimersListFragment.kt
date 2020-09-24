@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.workbench
 
 import android.content.Context
 import android.os.Bundle

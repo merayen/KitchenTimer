@@ -11,7 +11,12 @@ import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.main_activity.*
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.fragments.*
+import net.merayen.kitchentimer.fragments.tabs.items.ItemSetupTab
+import net.merayen.kitchentimer.fragments.tabs.quicktimers.QuickTimersTab
+import net.merayen.kitchentimer.fragments.tabs.recipes.RecipesTab
+import net.merayen.kitchentimer.fragments.tabs.storage.StorageTab
+import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment
+import net.merayen.kitchentimer.fragments.tabs.workbench.WorkbenchTab
 import java.lang.RuntimeException
 
 /**

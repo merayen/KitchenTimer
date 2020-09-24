@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments
+package net.merayen.kitchentimer.fragments.tabs.recipes
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayout
 
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.data.Recipe
 import net.merayen.kitchentimer.fragments.common.SelectableList
 import net.merayen.kitchentimer.viewmodels.TaskSetupTabViewModel
 
