@@ -12,6 +12,13 @@
         android:layout_height="match_parent"
         android:layout_weight="2" />
 
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="?android:attr/listDivider" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -6,4 +6,5 @@ Look at its features here: [Features](doc/Features.md)
 
 ## Current state
 ![Image of KitchenTimer](doc/img/screenshot.png)
+
 Very WIP. Mostly layout and the database structure has been planned and implemented.
