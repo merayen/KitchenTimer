@@ -7,8 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StorageRepository @Inject constructor(
-    private val locationDao: LocationDao
-){
+class StorageRepository @Inject constructor(private val locationDao: LocationDao) {
     fun get(): LiveData<List<Location>> = locationDao.get()
+    fun get(id: Int): LiveData<Location> = locationDao.get(id)
 }

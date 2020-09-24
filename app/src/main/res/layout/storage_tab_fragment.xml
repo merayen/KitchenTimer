@@ -23,11 +23,11 @@
             android:layout_height="match_parent"
             android:background="?android:attr/listDivider" />
 
-        <TextView
+        <FrameLayout
+            android:id="@+id/storageEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="Should allow user to browse by container? Perhaps a menu on the left side?" />
+            tools:context=".fragments.tabs.storage.StorageEdit" />
 
     </LinearLayout>
 
