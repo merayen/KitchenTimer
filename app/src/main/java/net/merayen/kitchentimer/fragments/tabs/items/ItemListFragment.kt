@@ -111,7 +111,7 @@ class ItemListFragment : Fragment() {
                         r++
                     }
 
-                    itemLevel[item.parent] = r
+                    itemLevel[item.parent ?: 0] = r
                 }
             }
 

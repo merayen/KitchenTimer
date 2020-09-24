@@ -1,6 +1,7 @@
 package net.merayen.kitchentimer.data
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 /**
@@ -16,9 +17,17 @@ import androidx.room.PrimaryKey
  * Recipes links to an [Item] for what is needed. This app figures out then which [ItemInstance] that should be
  * actually used.
  */
-@Entity
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = Item::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("parent")
+        )
+    ]
+)
 data class Item(
     @PrimaryKey override val id: Int,
-    override var parent: Int,
+    override var parent: Int? = null,
     override var name: String
 ) : NamedItem, TreeItem

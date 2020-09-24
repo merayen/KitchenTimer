@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Location(
-    @PrimaryKey val id: Int,
-    val name: String,
-    val parent: Int? = null
-)
+    @PrimaryKey override val id: Int,
+    override val parent: Int? = null,
+    override val name: String
+) : TreeItem, NamedItem

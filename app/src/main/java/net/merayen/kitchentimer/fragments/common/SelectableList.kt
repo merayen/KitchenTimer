@@ -25,7 +25,7 @@ class SelectableList : Fragment() {
     }
 
     private var items: ArrayList<NamedItem> = ArrayList()
-    private val itemLevel = HashMap<Int, Int>()
+    private val itemLevel = HashMap<Int?, Int>()
     private var itemsById: Map<Int, NamedItem> = HashMap()
     private var itemSelected = 0
 
@@ -121,7 +121,7 @@ class SelectableList : Fragment() {
 
         // Recursive sorting for display
         items.clear()
-        fun p(parent: Int = 0) {
+        fun p(parent: Int? = null) {
             for (item in newItems) {
                 if (item !is TreeItem) {
                     items.add(item)
@@ -141,8 +141,8 @@ class SelectableList : Fragment() {
             if (item is TreeItem && item.parent !in itemLevel) {
                 var current = item as TreeItem
                 var r = 0
-                while (current.parent != 0) {
-                    current = itemsById[current.parent] as TreeItem
+                while (current.parent != null) {
+                    current = itemsById[current.parent!!] as TreeItem
                     r++
                 }
 

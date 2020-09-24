@@ -32,7 +32,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/itemList"
-            android:name="net.merayen.kitchentimer.fragments.ItemInstancePropertyListFragment"
+            android:name="net.merayen.kitchentimer.fragments.tabs.items.ItemInstancePropertyListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
