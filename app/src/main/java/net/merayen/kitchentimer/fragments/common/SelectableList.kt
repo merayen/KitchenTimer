@@ -27,7 +27,8 @@ class SelectableList : Fragment() {
     private var items: ArrayList<NamedItem> = ArrayList()
     private val itemLevel = HashMap<Int?, Int>()
     private var itemsById: Map<Int, NamedItem> = HashMap()
-    private var itemSelected = 0
+    var itemSelected = 0
+        private set
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 

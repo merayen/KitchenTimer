@@ -27,7 +27,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Item(
-    @PrimaryKey override val id: Int,
+    @PrimaryKey(autoGenerate = true) override val id: Int = 0,
     override var parent: Int? = null,
     override var name: String
 ) : NamedItem, TreeItem

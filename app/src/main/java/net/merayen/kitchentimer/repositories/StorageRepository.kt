@@ -10,4 +10,6 @@ import javax.inject.Singleton
 class StorageRepository @Inject constructor(private val locationDao: LocationDao) {
     fun get(): LiveData<List<Location>> = locationDao.get()
     fun get(id: Int): LiveData<Location> = locationDao.get(id)
+    fun insert(location: Location) = locationDao.save(location)
+    fun update(location: Location) = locationDao.update(location)
 }

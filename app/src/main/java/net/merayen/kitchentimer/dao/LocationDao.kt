@@ -1,16 +1,16 @@
 package net.merayen.kitchentimer.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import net.merayen.kitchentimer.data.Location
 
 @Dao
 interface LocationDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun save(location: Location)
+
+    @Update
+    fun update(location: Location)
 
     @Query("SELECT * FROM Location")
     fun get(): LiveData<List<Location>>
