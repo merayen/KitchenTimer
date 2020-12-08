@@ -1,24 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.tabs.quicktimers.QuickTimersTab">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".fragments.tabs.quicktimers.QuickTimersTab">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Denne skal vise greier"/>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Denne skal vise greier" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/quick_timers_list"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+		<LinearLayout
+			android:id="@+id/new_timer"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
 
-    </LinearLayout>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_weight="1">
 
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="0px"
+					android:layout_weight="1"
+					android:orientation="horizontal">
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="vertical"
+						android:layout_weight="1">
+
+						<Button
+							android:id="@+id/add_hour"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="+"
+							android:layout_weight="1"/>
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:textAlignment="center"
+							android:textSize="14pt"
+							android:layout_weight="1"
+							android:text="24h" />
+
+						<Button
+							android:id="@+id/sub_hour"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:text="-" />
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="vertical"
+						android:layout_weight="1">
+
+						<Button
+							android:id="@+id/add_minute"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="+" />
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:textAlignment="center"
+							android:textSize="14pt"
+							android:text="59m" />
+
+						<Button
+							android:id="@+id/sub_minute"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:text="-" />
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"/>
+
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Start"
+			android:layout_weight="1"/>
+		</LinearLayout>
+	</LinearLayout>
 </FrameLayout>

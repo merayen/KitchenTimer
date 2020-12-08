@@ -14,10 +14,9 @@ class StorageInventoryFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
+        return super.onCreateView(inflater, container, savedInstanceState)
 
-        val view = inflater.inflate(R.layout.storageInv)
-
-        return view
+        //val view = inflater.inflate(R.layout.storageInv)
+        //return view
     }
 }
