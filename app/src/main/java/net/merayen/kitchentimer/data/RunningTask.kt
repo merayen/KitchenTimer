@@ -12,6 +12,7 @@ import androidx.room.PrimaryKey
  * @property name Name of the owner
  * @property start Unix time in seconds when the timer got started. If less than 1, the timer is not active (e.g paused or not started yet) (e.g paused or not started yet)
  * @property elapsed Total time the task has run (add current time minus "start" if "start" is more than 0 to get total)
+ * @property seconds How many seconds this timer will last
  */
 @Entity(
     foreignKeys = [
@@ -23,9 +24,10 @@ import androidx.room.PrimaryKey
     ]
 )
 data class RunningTask(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(index = true) val task: Int?,
     val name: String,
     val start: Long = 0L,
-    val elapsed: Int = 0
+    val elapsed: Int = 0,
+    val seconds: Int = 0
 )

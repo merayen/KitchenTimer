@@ -63,22 +63,32 @@ abstract class AppDatabase : RoomDatabase() {
                     db.itemInstanceDao().save(ItemInstance(2, 5, "Sautekjele"))
 
                     db.itemInstanceDao().save(ItemInstance(3, 4, "Karbonstålpanne 20cm"))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(1, 3, ItemInstanceProperty.Type.RADIUS.name, 200f))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(2, 3, ItemInstanceProperty.Type.HEIGHT.name, 40f))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(3, 3, ItemInstanceProperty.Type.VOLUME.name, 1000f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(1, 3, ItemInstanceProperty.Type.RADIUS.name, 200f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(2, 3, ItemInstanceProperty.Type.HEIGHT.name, 40f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(3, 3, ItemInstanceProperty.Type.VOLUME.name, 1000f))
 
                     db.itemInstanceDao().save(ItemInstance(5, 4, "Karbonstålpanne 24cm"))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(4, 5, ItemInstanceProperty.Type.RADIUS.name, 240f))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(5, 5, ItemInstanceProperty.Type.HEIGHT.name, 40f))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(6, 5, ItemInstanceProperty.Type.VOLUME.name, 1200f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(4, 5, ItemInstanceProperty.Type.RADIUS.name, 240f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(5, 5, ItemInstanceProperty.Type.HEIGHT.name, 40f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(6, 5, ItemInstanceProperty.Type.VOLUME.name, 1200f))
 
                     db.itemInstanceDao().save(ItemInstance(6, 4, "Karbonstålpanne 28cm"))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(7, 6, ItemInstanceProperty.Type.RADIUS.name, 280f))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(8, 6, ItemInstanceProperty.Type.HEIGHT.name, 40f))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(9, 6, ItemInstanceProperty.Type.VOLUME.name, 1400f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(7, 6, ItemInstanceProperty.Type.RADIUS.name, 280f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(8, 6, ItemInstanceProperty.Type.HEIGHT.name, 40f))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(9, 6, ItemInstanceProperty.Type.VOLUME.name, 1400f))
 
                     db.itemInstanceDao().save(ItemInstance(4, 7, "Vann fra springen"))
-                    db.itemInstancePropertyDao().save(ItemInstanceProperty(10, 4, ItemInstanceProperty.Type.VOLUME.name, Float.MAX_VALUE))
+                    db.itemInstancePropertyDao()
+                        .save(ItemInstanceProperty(10, 4, ItemInstanceProperty.Type.VOLUME.name, Float.MAX_VALUE))
 
                     db.taskDao().save(Task(1, "Koke poteter"))
                     db.taskDao().save(Task(2, "Hente agurk"))
@@ -97,8 +107,8 @@ abstract class AppDatabase : RoomDatabase() {
                         )
                     )
 
-                    db.runningTaskDao().save(RunningTask(1, 1, "Koke poteter", elapsed = 83))
-                    db.runningTaskDao().save(RunningTask(2, 4, "Varme teppan", elapsed = 343))
+                    db.runningTaskDao().save(RunningTask(1, 1, "Koke poteter", elapsed = 83, seconds = 20 * 60))
+                    db.runningTaskDao().save(RunningTask(2, 4, "Varme teppan", elapsed = 343, seconds = 15 * 60))
 
                     // Storage
                     db.locationDao().save(Location(name = "Kjøleskap"))
@@ -130,6 +140,8 @@ abstract class AppDatabase : RoomDatabase() {
                 newDb
             }
         }
+
+        fun getInstance(): AppDatabase = INSTANCE!!
     }
 
     abstract fun taskDao(): TaskDao

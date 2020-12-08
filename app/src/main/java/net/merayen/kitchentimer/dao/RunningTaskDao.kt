@@ -19,7 +19,7 @@ interface RunningTaskDao {
             t.id AS taskId,
             t.name AS taskName
         FROM RunningTask r
-        JOIN Task t ON t.id = r.task
+        LEFT JOIN Task t ON t.id = r.task
         """
     )
     fun getRunningTaskData(): LiveData<List<RunningTaskData>>

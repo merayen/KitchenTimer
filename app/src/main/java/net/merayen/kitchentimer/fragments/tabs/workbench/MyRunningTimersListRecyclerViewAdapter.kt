@@ -29,7 +29,10 @@ class MyRunningTimersListRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as RunningTaskData
-            mListener?.onListFragmentInteraction(item.runningTaskId)
+            if (item.runningTaskId != null)
+                mListener?.onListFragmentInteraction(item.runningTaskId)
+            else
+                ; // TODO should show the quick timer or something?
         }
     }
 
@@ -47,7 +50,14 @@ class MyRunningTimersListRecyclerViewAdapter(
         if (position > 5)
             holder.mView.alpha = 0.5f
         else
-            holder.mView.setBackgroundColor(arrayOf(Color.YELLOW, Color.RED, Color.BLUE, Color.GREEN)[Random.nextInt(4)])
+            holder.mView.setBackgroundColor(
+                arrayOf(
+                    Color.YELLOW,
+                    Color.RED,
+                    Color.BLUE,
+                    Color.GREEN
+                )[Random.nextInt(4)]
+            )
 
         with(holder.mView) {
             tag = item
