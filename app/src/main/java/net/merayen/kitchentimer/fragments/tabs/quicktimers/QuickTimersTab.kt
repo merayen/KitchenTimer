@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -56,6 +57,8 @@ class QuickTimersTab : Fragment() {
 
         updateStuff(0, view)
 
+        createPresets(view)
+
         return view
     }
 
@@ -67,5 +70,11 @@ class QuickTimersTab : Fragment() {
         val seconds = viewModel.seconds
         view.findViewById<TextView>(R.id.hours)?.text = "${seconds / 3600}h"
         view.findViewById<TextView>(R.id.minutes)?.text = "${seconds / 60 % 60}m"
+    }
+
+    private fun createPresets(view: View) {
+        val presets = view.findViewById<LinearLayout>(R.id.presets)
+        listOf(60*5)
+        //presets.addView()
     }
 }

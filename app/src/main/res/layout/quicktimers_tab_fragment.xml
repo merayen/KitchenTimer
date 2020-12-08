@@ -10,14 +10,23 @@
 		android:layout_height="match_parent"
 		android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
+		<ScrollView
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="Denne skal vise greier" />
+			android:layout_weight="3">
+
+			<LinearLayout
+				android:id="@+id/presets"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</ScrollView>
 
 		<TableLayout
 			android:columnCount="3"
 			android:stretchColumns="*"
+			android:layout_weight="1"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
