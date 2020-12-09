@@ -12,16 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment
-import net.merayen.kitchentimer.livedata.RunningTaskData
+import net.merayen.kitchentimer.livedata.RunningTimerData
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
 
 class WorkbenchTab : Fragment() {
     private val viewModel by viewModels<WorkbenchTabViewModel>()
     private var listener: RunningTimersListFragment.OnListFragmentInteractionListener? = null
 
-    class RunningTaskListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
-        private var items: List<RunningTaskData> = ArrayList()
+    class RunningTimerListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
+        private var items: List<RunningTimerData> = ArrayList()
 
         private val mOnClickListener: View.OnClickListener
         var onItemClick: (() -> Unit)? = null
@@ -50,7 +49,7 @@ class WorkbenchTab : Fragment() {
             holder.mView.findViewById<TextView>(R.id.name).text = items[position].taskName
         }
 
-        fun setItems(items: List<RunningTaskData>) {
+        fun setItems(items: List<RunningTimerData>) {
             this.items = items
         }
     }
@@ -63,7 +62,7 @@ class WorkbenchTab : Fragment() {
         }
     }
 
-    var showRunningTaskId: Int? = null
+    var showRunningTimerId: Int? = null
 
     companion object {
         fun newInstance() = WorkbenchTab()
@@ -79,7 +78,7 @@ class WorkbenchTab : Fragment() {
         val taskList = view.findViewById<RecyclerView>(R.id.taskList)
         with(taskList) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            val adapter = RunningTaskListRecyclerViewAdapter()
+            val adapter = RunningTimerListRecyclerViewAdapter()
             this.adapter = adapter
 
             viewModel.runningTasks.observe(viewLifecycleOwner, Observer {
@@ -93,21 +92,21 @@ class WorkbenchTab : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val showRunningTaskId = showRunningTaskId
-        if (showRunningTaskId != null) { // TODO move out in a separate method? Trigger it from item clicked on the left
+        val showRunningTimerId = showRunningTimerId
+        if (showRunningTimerId != null) { // TODO move out in a separate method? Trigger it from item clicked on the left
             val noe = view
             val textView = noe!!.findViewById<TextView>(R.id.debugText)
 
-            println("RunningTask.id=$showRunningTaskId")
-            viewModel.get(showRunningTaskId).observe(viewLifecycleOwner, Observer {
+            println("RunningTimer.id=$showRunningTimerId")
+            viewModel.get(showRunningTimerId).observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     textView.text = it.taskName
                 } else {
-                    println("$showRunningTaskId not found :( ")
+                    println("$showRunningTimerId not found :( ")
                 }
             })
 
-            this.showRunningTaskId = null
+            this.showRunningTimerId = null
         }
     }
 
@@ -120,6 +119,6 @@ class WorkbenchTab : Fragment() {
     }
 
     fun selectTask(taskInstance: Int) { // TODO should be some kind of task instance?
-        showRunningTaskId = taskInstance
+        showRunningTimerId = taskInstance
     }
 }

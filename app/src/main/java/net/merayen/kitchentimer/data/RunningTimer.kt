@@ -23,7 +23,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class RunningTask(
+data class RunningTimer(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(index = true) val task: Int?,
     val name: String,

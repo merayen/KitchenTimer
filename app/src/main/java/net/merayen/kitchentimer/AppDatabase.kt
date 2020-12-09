@@ -15,7 +15,7 @@ import net.merayen.kitchentimer.data.ItemInstance
     entities = [
         Task::class,
         TaskDependency::class,
-        RunningTask::class,
+        RunningTimer::class,
         Item::class,
         ItemInstance::class,
         ItemInstanceProperty::class,
@@ -107,8 +107,8 @@ abstract class AppDatabase : RoomDatabase() {
                         )
                     )
 
-                    db.runningTaskDao().save(RunningTask(1, 1, "Koke poteter", elapsed = 83, seconds = 20 * 60))
-                    db.runningTaskDao().save(RunningTask(2, 4, "Varme teppan", elapsed = 343, seconds = 15 * 60))
+                    db.runningTaskDao().save(RunningTimer(1, 1, "Koke poteter", elapsed = 83, seconds = 20 * 60))
+                    db.runningTaskDao().save(RunningTimer(2, 4, "Varme teppan", elapsed = 343, seconds = 15 * 60))
 
                     // Storage
                     db.locationDao().save(Location(name = "Kjøleskap"))
@@ -149,7 +149,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun itemInstanceDao(): ItemInstanceDao
     abstract fun itemInstanceLocationDao(): ItemInstanceLocationDao
     abstract fun itemInstancePropertyDao(): ItemInstancePropertyDao
-    abstract fun runningTaskDao(): RunningTaskDao
+    abstract fun runningTaskDao(): RunningTimerDao
     abstract fun recipeDao(): RecipeDao
     abstract fun locationDao(): LocationDao
 }

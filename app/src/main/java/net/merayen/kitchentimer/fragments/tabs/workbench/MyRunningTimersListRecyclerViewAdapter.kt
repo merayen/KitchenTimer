@@ -12,7 +12,7 @@ import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment.OnListFragmentInteractionListener
 
 import kotlinx.android.synthetic.main.fragment_running_timers_list.view.*
-import net.merayen.kitchentimer.livedata.RunningTaskData
+import net.merayen.kitchentimer.livedata.RunningTimerData
 import kotlin.random.Random
 
 /**
@@ -24,13 +24,13 @@ class MyRunningTimersListRecyclerViewAdapter(
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyRunningTimersListRecyclerViewAdapter.ViewHolder>() {
     private val mOnClickListener: View.OnClickListener
-    private var items: List<RunningTaskData> = ArrayList()
+    private var items: List<RunningTimerData> = ArrayList()
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as RunningTaskData
-            if (item.runningTaskId != null)
-                mListener?.onListFragmentInteraction(item.runningTaskId)
+            val item = v.tag as RunningTimerData
+            if (item.runningTimerId != null)
+                mListener?.onListFragmentInteraction(item.runningTimerId)
             else
                 ; // TODO should show the quick timer or something?
         }
@@ -75,7 +75,7 @@ class MyRunningTimersListRecyclerViewAdapter(
         }
     }
 
-    fun setItems(items: List<RunningTaskData>) {
+    fun setItems(items: List<RunningTimerData>) {
         this.items = items
         notifyDataSetChanged()
     }

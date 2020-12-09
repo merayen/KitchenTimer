@@ -1,6 +1,5 @@
 package net.merayen.kitchentimer.fragments.tabs.quicktimers
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -85,21 +84,29 @@ class QuickTimersTab : Fragment() {
             60 * 40,
             60 * 50,
             60 * 30 * 3,
+            60 * 30 * 4,
             60 * 30 * 5,
+            60 * 30 * 6,
             60 * 30 * 7,
+            60 * 30 * 8,
             60 * 30 * 9,
+            60 * 30 * 10,
             60 * 30 * 11,
+            60 * 30 * 12,
             60 * 30 * 13,
+            60 * 30 * 14,
             60 * 30 * 15,
+            60 * 30 * 16,
             60 * 30 * 17,
+            60 * 30 * 18,
             60 * 30 * 19,
-            60 * 30 * 21,
+            60 * 30 * 20,
         ).map { seconds ->
             val something = TextView(context)
             something.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             something.height = 50 // TODO ugh, how to make this auto?
-            //something.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM)
-            something.setAutoSizeTextTypeUniformWithConfiguration(10, 100, 3, TypedValue.COMPLEX_UNIT_PX)
+            something.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM)
+            //something.setAutoSizeTextTypeUniformWithConfiguration(10, 100, 3, TypedValue.COMPLEX_UNIT_PX)
             something.text = formatDuration(seconds)
             something.setOnClickListener {
                 viewModel.seconds = 0

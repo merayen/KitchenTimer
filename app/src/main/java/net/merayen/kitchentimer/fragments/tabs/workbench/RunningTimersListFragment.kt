@@ -52,9 +52,9 @@ class RunningTimersListFragment : Fragment() {
                 val adapter = MyRunningTimersListRecyclerViewAdapter(listener)
                 this.adapter = adapter
 
-                viewModel.getRunningTasks().observe(this@RunningTimersListFragment.viewLifecycleOwner, Observer {
+                viewModel.getRunningTimers().observe(this@RunningTimersListFragment.viewLifecycleOwner) {
                     adapter.setItems(it)
-                })
+                }
             }
         }
         return view
