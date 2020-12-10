@@ -107,8 +107,8 @@ abstract class AppDatabase : RoomDatabase() {
                         )
                     )
 
-                    db.runningTaskDao().save(RunningTimer(1, 1, "Koke poteter", elapsed = 83, seconds = 20 * 60))
-                    db.runningTaskDao().save(RunningTimer(2, 4, "Varme teppan", elapsed = 343, seconds = 15 * 60))
+                    db.runningTaskDao().save(RunningTimer(1, 1, "Koke poteter", start = System.currentTimeMillis() / 1000, seconds = 20 * 60))
+                    db.runningTaskDao().save(RunningTimer(2, 4, "Varme teppan", start = System.currentTimeMillis() / 1000, seconds = 15 * 60))
 
                     // Storage
                     db.locationDao().save(Location(name = "Kjøleskap"))

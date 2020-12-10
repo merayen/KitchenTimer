@@ -13,7 +13,7 @@ class QuickTimersTabViewModel(application: Application) : AndroidViewModel(appli
     private val taskRepository = TaskRepository(AppDatabase.getDatabase(application).taskDao())
 
     fun createQuickTimer() {
-        val runningTask = RunningTimer(0, null, "Quick timer", seconds = seconds)
+        val runningTask = RunningTimer(0, null, "Quick timer", seconds = seconds, start = System.currentTimeMillis() / 1000)
         runningTaskRepository.save(runningTask)
     }
 }

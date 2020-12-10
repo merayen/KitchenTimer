@@ -10,20 +10,6 @@ import net.merayen.kitchentimer.livedata.RunningTimerData
 
 @Dao
 interface RunningTimerDao {
-    @Query(
-        """
-        SELECT
-            r.id AS runningTimerId,
-            r.start AS runningTimerStart,
-            r.elapsed AS runningTimerElapsed,
-            t.id AS taskId,
-            t.name AS taskName
-        FROM RunningTimer r
-        LEFT JOIN Task t ON t.id = r.task
-        """
-    )
-    fun getRunningTimerData(): LiveData<List<RunningTimerData>>
-
     @Query("SELECT * FROM RunningTimer WHERE id = (:ids)")
     fun get(ids: List<Int>): LiveData<List<RunningTimer>>
 
@@ -39,6 +25,7 @@ interface RunningTimerDao {
             r.id AS runningTimerId,
             r.start AS runningTimerStart,
             r.elapsed AS runningTimerElapsed,
+            r.seconds AS runningTimerSeconds,
             t.id AS taskId,
             t.name AS taskName
         FROM RunningTimer r
@@ -47,6 +34,21 @@ interface RunningTimerDao {
         """
     )
     fun getRunningTimerData(id: Int): LiveData<RunningTimerData>
+
+    @Query(
+        """
+        SELECT
+            r.id AS runningTimerId,
+            r.start AS runningTimerStart,
+            r.elapsed AS runningTimerElapsed,
+            r.seconds AS runningTimerSeconds,
+            t.id AS taskId,
+            t.name AS taskName
+        FROM RunningTimer r
+        LEFT JOIN Task t ON t.id = r.task
+        """
+    )
+    fun getRunningTimerData(): LiveData<List<RunningTimerData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(runningTimer: RunningTimer)

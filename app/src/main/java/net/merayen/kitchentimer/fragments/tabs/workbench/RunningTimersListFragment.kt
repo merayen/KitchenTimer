@@ -55,6 +55,13 @@ class RunningTimersListFragment : Fragment() {
                 viewModel.getRunningTimers().observe(this@RunningTimersListFragment.viewLifecycleOwner) {
                     adapter.setItems(it)
                 }
+
+                fun update() {
+                    adapter.updateTimes()
+                    postDelayed({ update() }, 500)
+                }
+
+                update()
             }
         }
         return view

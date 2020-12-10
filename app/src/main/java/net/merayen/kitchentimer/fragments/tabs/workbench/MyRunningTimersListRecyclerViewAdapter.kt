@@ -29,10 +29,7 @@ class MyRunningTimersListRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as RunningTimerData
-            if (item.runningTimerId != null)
-                mListener?.onListFragmentInteraction(item.runningTimerId)
-            else
-                ; // TODO should show the quick timer or something?
+            mListener?.onListFragmentInteraction(item.runningTimerId)
         }
     }
 
@@ -45,7 +42,9 @@ class MyRunningTimersListRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
+        val remaining = item.remaining
         holder.mContentView.text = item.taskName
+        holder.mTimeView.text = "${remaining / 3600}h ${remaining / 60 % 60}m ${remaining % 60}s"
 
         if (position > 5)
             holder.mView.alpha = 0.5f
@@ -53,10 +52,10 @@ class MyRunningTimersListRecyclerViewAdapter(
             holder.mView.setBackgroundColor(
                 arrayOf(
                     Color.YELLOW,
-                    Color.RED,
-                    Color.BLUE,
-                    Color.GREEN
-                )[Random.nextInt(4)]
+                    //Color.RED,
+                    //Color.BLUE,
+                    //Color.GREEN
+                )[Random.nextInt(1)]
             )
 
         with(holder.mView) {
@@ -69,6 +68,7 @@ class MyRunningTimersListRecyclerViewAdapter(
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mContentView: TextView = mView.content
+        val mTimeView: TextView = mView.time
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
@@ -77,6 +77,10 @@ class MyRunningTimersListRecyclerViewAdapter(
 
     fun setItems(items: List<RunningTimerData>) {
         this.items = items
+        notifyDataSetChanged()
+    }
+
+    fun updateTimes() {
         notifyDataSetChanged()
     }
 }

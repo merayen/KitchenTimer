@@ -29,5 +29,5 @@ data class RunningTimer(
     val name: String,
     val start: Long = 0L,
     val elapsed: Int = 0,
-    val seconds: Int = 0
+    val seconds: Int = 0,
 )
