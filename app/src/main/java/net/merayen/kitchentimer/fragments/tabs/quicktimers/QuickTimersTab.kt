@@ -104,7 +104,7 @@ class QuickTimersTab : Fragment() {
         ).map { seconds ->
             val something = TextView(context)
             something.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            something.height = 50 // TODO ugh, how to make this auto?
+            something.height = 40 // TODO ugh, how to make this auto?
             something.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM)
             //something.setAutoSizeTextTypeUniformWithConfiguration(10, 100, 3, TypedValue.COMPLEX_UNIT_PX)
             something.text = formatDuration(seconds)

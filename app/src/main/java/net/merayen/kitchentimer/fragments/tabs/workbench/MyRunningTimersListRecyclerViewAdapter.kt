@@ -50,12 +50,7 @@ class MyRunningTimersListRecyclerViewAdapter(
             holder.mView.alpha = 0.5f
         else
             holder.mView.setBackgroundColor(
-                arrayOf(
-                    Color.YELLOW,
-                    //Color.RED,
-                    //Color.BLUE,
-                    //Color.GREEN
-                )[Random.nextInt(1)]
+                if (item.remaining > 0) Color.YELLOW else Color.RED
             )
 
         with(holder.mView) {

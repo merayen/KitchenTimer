@@ -23,13 +23,14 @@ interface RunningTimerDao {
         """
         SELECT
             r.id AS runningTimerId,
+            r.name AS runningTimerName,
             r.start AS runningTimerStart,
             r.elapsed AS runningTimerElapsed,
             r.seconds AS runningTimerSeconds,
             t.id AS taskId,
             t.name AS taskName
         FROM RunningTimer r
-        JOIN Task t ON r.task = t.id
+        LEFT JOIN Task t ON r.task = t.id
         WHERE r.id = :id
         """
     )
@@ -39,6 +40,7 @@ interface RunningTimerDao {
         """
         SELECT
             r.id AS runningTimerId,
+            r.name AS runningTimerName,
             r.start AS runningTimerStart,
             r.elapsed AS runningTimerElapsed,
             r.seconds AS runningTimerSeconds,

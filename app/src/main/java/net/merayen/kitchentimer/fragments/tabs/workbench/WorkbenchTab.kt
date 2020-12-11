@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -94,17 +97,27 @@ class WorkbenchTab : Fragment() {
 
         val showRunningTimerId = showRunningTimerId
         if (showRunningTimerId != null) { // TODO move out in a separate method? Trigger it from item clicked on the left
-            val noe = view
-            val textView = noe!!.findViewById<TextView>(R.id.debugText)
+            // TODO tissue:show_running_timer just do it
+            val frameLayout = view!!.findViewById<FrameLayout>(R.id.current_timer)
 
-            println("RunningTimer.id=$showRunningTimerId")
-            viewModel.get(showRunningTimerId).observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    textView.text = it.taskName
-                } else {
-                    println("$showRunningTimerId not found :( ")
+            val newFrame = RunningTimer(showRunningTimerId)
+
+            parentFragmentManager.commit {
+                if (!frameLayout.isEmpty()) {
+                    frameLayout.removeAllViews()
+                    //replace(R.id.current_timer, newFrame)
                 }
-            })
+
+                add(R.id.current_timer, newFrame)
+
+                viewModel.get(showRunningTimerId).observe(viewLifecycleOwner) {
+                    //if (it != null) {
+                    //    textView.text = it.taskName
+                    //} else {
+                    //    println("$showRunningTimerId not found :( ")
+                    //}
+                }
+            }
 
             this.showRunningTimerId = null
         }

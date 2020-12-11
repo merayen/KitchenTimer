@@ -27,7 +27,12 @@ data class RunningTimer(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(index = true) val task: Int?,
     val name: String,
-    val start: Long = 0L,
-    val elapsed: Int = 0,
+    var start: Long = 0L,
+    var elapsed: Int = 0,
     val seconds: Int = 0,
-)
+) {
+    fun pause() {
+        if (start < 1L) return // Already paused
+        elapsed += (System.currentTimeMillis() / 1000 - start).toInt()
+    }
+}

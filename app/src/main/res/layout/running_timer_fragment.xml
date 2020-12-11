@@ -1,13 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.tabs.workbench.RunningTimer">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".fragments.tabs.workbench.RunningTimer">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+	<TableLayout
+		android:stretchColumns="1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-</FrameLayout>
+		<TableRow>
+
+			<TextView
+				android:layout_margin="@dimen/text_margin"
+				android:text="Name:" />
+
+			<TextView
+				android:id="@+id/name"
+				android:layout_margin="@dimen/text_margin"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+		</TableRow>
+
+		<TableRow>
+
+			<TextView
+				android:layout_margin="@dimen/text_margin"
+				android:text="Remaining:" />
+
+			<TextView
+				android:id="@+id/remaining"
+				android:layout_margin="@dimen/text_margin"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow>
+
+			<TextView
+				android:layout_margin="@dimen/text_margin"
+				android:text="Total:" />
+
+			<TextView
+				android:id="@+id/total"
+				android:layout_margin="@dimen/text_margin"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+		</TableRow>
+
+		<TableRow>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="2px"
+				android:layout_column="1"
+				android:background="@color/black_overlay" />
+
+		</TableRow>
+
+		<TableRow>
+
+			<TextView
+				android:layout_margin="@dimen/text_margin"
+				android:text="Progress bar" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="horizontal">
+
+				<View
+					android:id="@+id/progress_marked"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="100"
+					android:background="#4CAF50" />
+
+				<View
+					android:id="@+id/progress_empty"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:background="#FFFFFF" />
+			</LinearLayout>
+
+		</TableRow>
+
+		<TableRow>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="2px"
+				android:layout_column="1"
+				android:background="@color/black_overlay" />
+
+		</TableRow>
+
+	</TableLayout>
+
+	<TableLayout
+		android:stretchColumns="*"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TableRow>
+
+			<Button
+				android:id="@+id/reset"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Reset" />
+
+			<Button
+				android:id="@+id/pause"
+				android:text="Pause" />
+
+			<Button
+				android:id="@+id/done"
+				android:text="Done" />
+
+		</TableRow>
+
+	</TableLayout>
+
+</LinearLayout>
