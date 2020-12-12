@@ -7,13 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import net.merayen.kitchentimer.R
-
-
 import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment.OnListFragmentInteractionListener
-
 import kotlinx.android.synthetic.main.fragment_running_timers_list.view.*
-import net.merayen.kitchentimer.livedata.RunningTimerData
-import kotlin.random.Random
+import net.merayen.kitchentimer.livedata.RunningTimerWithTask
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
@@ -24,12 +20,12 @@ class MyRunningTimersListRecyclerViewAdapter(
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyRunningTimersListRecyclerViewAdapter.ViewHolder>() {
     private val mOnClickListener: View.OnClickListener
-    private var items: List<RunningTimerData> = ArrayList()
+    private var items: List<RunningTimerWithTask> = ArrayList()
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as RunningTimerData
-            mListener?.onListFragmentInteraction(item.runningTimerId)
+            val item = v.tag as RunningTimerWithTask
+            mListener?.onListFragmentInteraction(item.runningTimer.id)
         }
     }
 
@@ -42,15 +38,15 @@ class MyRunningTimersListRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        val remaining = item.remaining
-        holder.mContentView.text = item.taskName
+        val remaining = item.runningTimer.remaining
+        holder.mContentView.text = item.task?.name ?: ""
         holder.mTimeView.text = "${remaining / 3600}h ${remaining / 60 % 60}m ${remaining % 60}s"
 
         if (position > 5)
             holder.mView.alpha = 0.5f
         else
             holder.mView.setBackgroundColor(
-                if (item.remaining > 0) Color.YELLOW else Color.RED
+                if (item.runningTimer.remaining > 0) Color.YELLOW else Color.RED
             )
 
         with(holder.mView) {
@@ -70,7 +66,7 @@ class MyRunningTimersListRecyclerViewAdapter(
         }
     }
 
-    fun setItems(items: List<RunningTimerData>) {
+    fun setData(items: List<RunningTimerWithTask>) {
         this.items = items
         notifyDataSetChanged()
     }

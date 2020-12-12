@@ -11,11 +11,10 @@ import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.livedata.RunningTimerData
+import net.merayen.kitchentimer.livedata.RunningTimerWithTask
 import net.merayen.kitchentimer.viewmodels.WorkbenchTabViewModel
 
 class WorkbenchTab : Fragment() {
@@ -23,7 +22,7 @@ class WorkbenchTab : Fragment() {
     private var listener: RunningTimersListFragment.OnListFragmentInteractionListener? = null
 
     class RunningTimerListRecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>() {
-        private var items: List<RunningTimerData> = ArrayList()
+        private var items: List<RunningTimerWithTask> = ArrayList()
 
         private val mOnClickListener: View.OnClickListener
         var onItemClick: (() -> Unit)? = null
@@ -49,10 +48,10 @@ class WorkbenchTab : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.mView.findViewById<TextView>(R.id.name).text = items[position].taskName
+            holder.mView.findViewById<TextView>(R.id.name).text = items[position].task?.name ?: ""
         }
 
-        fun setItems(items: List<RunningTimerData>) {
+        fun setItems(items: List<RunningTimerWithTask>) {
             this.items = items
         }
     }
@@ -84,9 +83,9 @@ class WorkbenchTab : Fragment() {
             val adapter = RunningTimerListRecyclerViewAdapter()
             this.adapter = adapter
 
-            viewModel.runningTasks.observe(viewLifecycleOwner, Observer {
+            viewModel.runningTimers.observe(viewLifecycleOwner) {
                 adapter.setItems(it)
-            })
+            }
         }
 
         return view
@@ -100,7 +99,7 @@ class WorkbenchTab : Fragment() {
             // TODO tissue:show_running_timer just do it
             val frameLayout = view!!.findViewById<FrameLayout>(R.id.current_timer)
 
-            val newFrame = RunningTimer(showRunningTimerId)
+            val newFrame = RunningTimerFragment(showRunningTimerId)
 
             parentFragmentManager.commit {
                 if (!frameLayout.isEmpty()) {
@@ -109,14 +108,6 @@ class WorkbenchTab : Fragment() {
                 }
 
                 add(R.id.current_timer, newFrame)
-
-                viewModel.get(showRunningTimerId).observe(viewLifecycleOwner) {
-                    //if (it != null) {
-                    //    textView.text = it.taskName
-                    //} else {
-                    //    println("$showRunningTimerId not found :( ")
-                    //}
-                }
             }
 
             this.showRunningTimerId = null
@@ -131,7 +122,7 @@ class WorkbenchTab : Fragment() {
         }
     }
 
-    fun selectTask(taskInstance: Int) { // TODO should be some kind of task instance?
-        showRunningTimerId = taskInstance
+    fun selectTask(runningTimerId: Int) { // TODO should be some kind of task instance?
+        showRunningTimerId = runningTimerId
     }
 }

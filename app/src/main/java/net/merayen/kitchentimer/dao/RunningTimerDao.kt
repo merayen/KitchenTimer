@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import net.merayen.kitchentimer.data.RunningTimer
-import net.merayen.kitchentimer.livedata.RunningTimerData
+import net.merayen.kitchentimer.livedata.RunningTimerWithTask
 
 @Dao
 interface RunningTimerDao {
@@ -22,35 +22,21 @@ interface RunningTimerDao {
     @Query(
         """
         SELECT
-            r.id AS runningTimerId,
-            r.name AS runningTimerName,
-            r.start AS runningTimerStart,
-            r.elapsed AS runningTimerElapsed,
-            r.seconds AS runningTimerSeconds,
-            t.id AS taskId,
-            t.name AS taskName
-        FROM RunningTimer r
-        LEFT JOIN Task t ON r.task = t.id
-        WHERE r.id = :id
-        """
+            RunningTimer.*,
+            Task.*
+        FROM RunningTimer
+        LEFT JOIN Task ON RunningTimer.task = Task.id
+        WHERE RunningTimer.id = :runningTimerId"""
     )
-    fun getRunningTimerData(id: Int): LiveData<RunningTimerData>
+    fun getWithTask(runningTimerId: Int): LiveData<RunningTimerWithTask>
 
-    @Query(
-        """
+    @Query("""
         SELECT
-            r.id AS runningTimerId,
-            r.name AS runningTimerName,
-            r.start AS runningTimerStart,
-            r.elapsed AS runningTimerElapsed,
-            r.seconds AS runningTimerSeconds,
-            t.id AS taskId,
-            t.name AS taskName
-        FROM RunningTimer r
-        LEFT JOIN Task t ON t.id = r.task
-        """
-    )
-    fun getRunningTimerData(): LiveData<List<RunningTimerData>>
+            RunningTimer.*,
+            Task.*
+        FROM RunningTimer
+        LEFT JOIN Task ON RunningTimer.task = Task.id""")
+    fun getWithTask(): LiveData<List<RunningTimerWithTask>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(runningTimer: RunningTimer)

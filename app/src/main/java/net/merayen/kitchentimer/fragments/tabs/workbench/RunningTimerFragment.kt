@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,15 +12,15 @@ import androidx.fragment.app.viewModels
 import kotlinx.android.synthetic.main.running_timer_fragment.*
 
 import net.merayen.kitchentimer.R
-import net.merayen.kitchentimer.livedata.RunningTimerData
+import net.merayen.kitchentimer.data.RunningTimer
 import net.merayen.kitchentimer.viewmodels.RunningTimerViewModel
 
-class RunningTimer(val runningTimerId: Int) : Fragment() {
+class RunningTimerFragment(val runningTimerId: Int) : Fragment() {
     companion object {
-        fun newInstance(runningTimerId: Int) = RunningTimer(runningTimerId)
+        fun newInstance(runningTimerId: Int) = RunningTimerFragment(runningTimerId)
     }
 
-    private var lastRunningTimer: RunningTimerData? = null
+    private var lastRunningTimer: RunningTimer? = null
 
     private val viewModel by viewModels<RunningTimerViewModel>()
 
@@ -34,7 +33,7 @@ class RunningTimer(val runningTimerId: Int) : Fragment() {
 
         view.findViewById<Button>(R.id.pause).setOnClickListener {
             val runningTimer = lastRunningTimer
-            runningTimer
+            TODO()
         }
 
         fun update() {
@@ -43,9 +42,9 @@ class RunningTimer(val runningTimerId: Int) : Fragment() {
             if (runningTimer != null) {
                 val percentage = runningTimer.progress * 100
 
-                view.findViewById<TextView>(R.id.name).text = runningTimer.taskName ?: "quick timer"
+                view.findViewById<TextView>(R.id.name).text = "quick timer" // TODO use name from task
                 view.findViewById<TextView>(R.id.remaining).text = formatDuration(runningTimer.remaining)
-                view.findViewById<TextView>(R.id.total).text = formatDuration(runningTimer.runningTimerSeconds)
+                view.findViewById<TextView>(R.id.total).text = formatDuration(runningTimer.seconds)
                 view.findViewById<View>(R.id.progress_marked).layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,

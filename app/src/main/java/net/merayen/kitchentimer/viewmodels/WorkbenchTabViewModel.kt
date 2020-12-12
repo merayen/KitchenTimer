@@ -13,7 +13,7 @@ class WorkbenchTabViewModel(application: Application) : AndroidViewModel(applica
     /**
      * The list of all the active tasks on the left side of the workspace
      */
-    val runningTasks = runningTaskRepository.getRunningTimerData()
+    val runningTimers = runningTaskRepository.getWithTasks()
 
-    fun get(id: Int) = runningTaskRepository.getRunningTimerData(id)
+    fun get(id: Int) = runningTaskRepository.getWithTask(id)
 }

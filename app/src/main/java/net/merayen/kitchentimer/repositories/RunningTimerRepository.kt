@@ -14,7 +14,9 @@ class RunningTimerRepository @Inject constructor(
         AppDatabase.getInstance().queryExecutor.execute { runningTimerDao.save(runningTimer) }
 
     fun get(id: Int) = runningTimerDao.get(id)
-    fun getRunningTimerData() = runningTimerDao.getRunningTimerData()
-    fun getRunningTimerData(id: Int) = runningTimerDao.getRunningTimerData(id)
+    fun getRunningTimers() = runningTimerDao.get()
+    fun getWithTasks() = runningTimerDao.getWithTask()
+    fun getWithTask(id: Int) = runningTimerDao.getWithTask(id)
+    fun getRunningTimer(id: Int) = runningTimerDao.get(id)
     fun get() = runningTimerDao.get()
 }

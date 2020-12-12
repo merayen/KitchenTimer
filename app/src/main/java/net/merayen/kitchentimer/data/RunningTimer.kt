@@ -35,4 +35,16 @@ data class RunningTimer(
         if (start < 1L) return // Already paused
         elapsed += (System.currentTimeMillis() / 1000 - start).toInt()
     }
+
+    val remaining: Int
+        get() = if (start > 0)
+            (seconds - (System.currentTimeMillis() / 1000 - start + elapsed)).toInt()
+        else
+            seconds - elapsed
+
+    val progress: Float
+        get() = if (start > 0)
+            (elapsed + System.currentTimeMillis() / 1000 - start) / seconds.toFloat()
+        else
+            elapsed / seconds.toFloat()
 }
