@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
 	foreignKeys = [
 		ForeignKey(
 			entity = Task::class,
-			parentColumns = arrayOf("id"),
+			parentColumns = arrayOf("taskId"),
 			childColumns = arrayOf("dependsOn")
 		)
 	]

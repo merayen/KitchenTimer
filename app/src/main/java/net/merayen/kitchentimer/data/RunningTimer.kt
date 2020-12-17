@@ -4,7 +4,7 @@ import androidx.room.*
 
 /**
  * A task that is running, meaning it is shown in the WorkbenchTab, for what the user is currently doing.
- * @property id You know what this is and this is pointless documentation about that property
+ * @property runningTimerId You know what this is and this is pointless documentation about that property
  * @property task The task that is being run. null if it is a Quick Timer
  * @property name Name of the owner
  * @property start Unix time in seconds when the timer got started. If less than 1, the timer is not active (e.g paused or not started yet) (e.g paused or not started yet)
@@ -15,13 +15,13 @@ import androidx.room.*
     foreignKeys = [
         ForeignKey(
             entity = Task::class,
-            parentColumns = arrayOf("id"),
+            parentColumns = arrayOf("taskId"),
             childColumns = arrayOf("task")
         )
     ]
 )
 data class RunningTimer(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val runningTimerId: Int,
     @ColumnInfo(index = true) val task: Int?,
     val name: String,
     var start: Long = 0L,

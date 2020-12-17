@@ -25,7 +25,7 @@ class MyRunningTimersListRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as RunningTimerWithTask
-            mListener?.onListFragmentInteraction(item.runningTimer.id)
+            mListener?.onListFragmentInteraction(item.runningTimer.runningTimerId)
         }
     }
 
