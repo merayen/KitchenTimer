@@ -1,9 +1,6 @@
 package net.merayen.kitchentimer.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 /**
  * A task that is running, meaning it is shown in the WorkbenchTab, for what the user is currently doing.

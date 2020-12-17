@@ -117,9 +117,8 @@ class WorkbenchTab : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is RunningTimersListFragment.OnListFragmentInteractionListener) {
+        if (context is RunningTimersListFragment.OnListFragmentInteractionListener)
             listener = context
-        }
     }
 
     fun selectTask(runningTimerId: Int) { // TODO should be some kind of task instance?

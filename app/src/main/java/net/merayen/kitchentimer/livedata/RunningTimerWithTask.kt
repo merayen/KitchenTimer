@@ -6,9 +6,6 @@ import net.merayen.kitchentimer.data.RunningTimer
 import net.merayen.kitchentimer.data.Task
 
 data class RunningTimerWithTask(
-    @Embedded
-    val runningTimer: RunningTimer,
-
-    @Relation(parentColumn = "task", entityColumn = "id")
-    val task: Task?
+    @Embedded val runningTimer: RunningTimer,
+    @Relation(parentColumn = "task", entityColumn = "id") val task: Task?
 )

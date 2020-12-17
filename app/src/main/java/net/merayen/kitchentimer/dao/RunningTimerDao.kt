@@ -19,23 +19,10 @@ interface RunningTimerDao {
     @Query("SELECT * FROM RunningTimer")
     fun get(): LiveData<List<RunningTimer>>
 
-    @Query(
-        """
-        SELECT
-            RunningTimer.*,
-            Task.*
-        FROM RunningTimer
-        LEFT JOIN Task ON RunningTimer.task = Task.id
-        WHERE RunningTimer.id = :runningTimerId"""
-    )
-    fun getWithTask(runningTimerId: Int): LiveData<RunningTimerWithTask>
+    @Query("SELECT RunningTimer.*, Task.* FROM RunningTimer LEFT JOIN Task WHERE RunningTimer.task = Task.id AND RunningTimer.id = :id")
+    fun getWithTask(id: Int): LiveData<RunningTimerWithTask>
 
-    @Query("""
-        SELECT
-            RunningTimer.*,
-            Task.*
-        FROM RunningTimer
-        LEFT JOIN Task ON RunningTimer.task = Task.id""")
+    @Query("SELECT RunningTimer.*, Task.* FROM RunningTimer LEFT JOIN Task WHERE RunningTimer.task = Task.id")
     fun getWithTask(): LiveData<List<RunningTimerWithTask>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
