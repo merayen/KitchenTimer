@@ -37,7 +37,7 @@
                 android:id="@+id/workbenchTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Workbench" />
+                android:text="Bench" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/itemsTab"
@@ -56,6 +56,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Storage" />
+
+            <com.google.android.material.tabs.TabItem
+              android:id="@+id/quicktimersTab"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Quick" />
+
+            <com.google.android.material.tabs.TabItem
+              android:id="@+id/kitchenLayoutTab"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Layout" />
+
+            <com.google.android.material.tabs.TabItem
+              android:id="@+id/purchaseTab"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Ordering" />
+
+            <com.google.android.material.tabs.TabItem
+              android:id="@+id/menuTab"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Menu" />
 
         </com.google.android.material.tabs.TabLayout>
 

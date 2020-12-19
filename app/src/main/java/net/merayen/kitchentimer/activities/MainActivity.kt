@@ -11,6 +11,9 @@ import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.fragments.tabs.items.ItemSetupTab
+import net.merayen.kitchentimer.fragments.tabs.quicktimers.KitchenLayoutTab
+import net.merayen.kitchentimer.fragments.tabs.quicktimers.MenuTab
+import net.merayen.kitchentimer.fragments.tabs.quicktimers.OrderTab
 import net.merayen.kitchentimer.fragments.tabs.quicktimers.QuickTimersTab
 import net.merayen.kitchentimer.fragments.tabs.recipes.RecipesTab
 import net.merayen.kitchentimer.fragments.tabs.storage.StorageTab
@@ -82,14 +85,16 @@ class MainActivity : AppCompatActivity(), RunningTimersListFragment.OnListFragme
 		supportFragmentManager.commit {
 			val tabContent = findViewById<FrameLayout>(R.id.tabContent)
 
-			val newTab = when (position) {
-				0 -> WorkbenchTab::class.java
-				1 -> ItemSetupTab::class.java
-				2 -> RecipesTab::class.java
-				3 -> StorageTab::class.java
-				4 -> QuickTimersTab::class.java
-				else -> throw RuntimeException()
-			}
+			val newTab = listOf(
+				WorkbenchTab::class.java,
+				ItemSetupTab::class.java,
+				RecipesTab::class.java,
+				StorageTab::class.java,
+				QuickTimersTab::class.java,
+				KitchenLayoutTab::class.java,
+				OrderTab::class.java,
+				MenuTab::class.java,
+			)[position]
 
 			if (!tabContent.isEmpty()) {
 				tabContent.removeAllViews()
