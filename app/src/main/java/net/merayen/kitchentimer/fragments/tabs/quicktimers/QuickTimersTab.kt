@@ -63,9 +63,7 @@ class QuickTimersTab : Fragment() {
         return view
     }
 
-    private fun offsetSeconds(offset: Int, view: View? = this.view) {
-        val view = requireView()
-
+    private fun offsetSeconds(offset: Int, view: View = requireView()) {
         viewModel.seconds = max(60, viewModel.seconds + offset)
 
         val seconds = viewModel.seconds
