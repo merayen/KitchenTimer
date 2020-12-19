@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_running_timers_list.view.*
 import net.merayen.kitchentimer.livedata.RunningTimerWithTask
+import net.merayen.kitchentimer.utils.durationToString
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
@@ -23,8 +25,8 @@ class MyRunningTimersListRecyclerViewAdapter(
     private var items: List<RunningTimerWithTask> = ArrayList()
 
     init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as RunningTimerWithTask
+        mOnClickListener = View.OnClickListener {
+            val item = it.tag as RunningTimerWithTask
             mListener?.onListFragmentInteraction(item.runningTimer.runningTimerId)
         }
     }
@@ -40,7 +42,20 @@ class MyRunningTimersListRecyclerViewAdapter(
         val item = items[position]
         val remaining = item.runningTimer.remaining
         holder.mContentView.text = item.task?.name ?: ""
-        holder.mTimeView.text = "${remaining / 3600}h ${remaining / 60 % 60}m ${remaining % 60}s"
+        holder.mTimeView.text = durationToString(remaining)
+
+        val percentage = item.runningTimer.progress * 100
+
+        holder.mProgressMarked.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            100 - percentage
+        )
+        holder.mProgressEmpty.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            percentage
+        )
 
         if (position > 5)
             holder.mView.alpha = 0.5f
@@ -60,6 +75,8 @@ class MyRunningTimersListRecyclerViewAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mContentView: TextView = mView.content
         val mTimeView: TextView = mView.time
+        val mProgressMarked: View = mView.progress_marked
+        val mProgressEmpty: View = mView.progress_empty
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

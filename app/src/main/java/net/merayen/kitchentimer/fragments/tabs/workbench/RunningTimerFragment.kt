@@ -37,7 +37,7 @@ class RunningTimerFragment(val runningTimerId: Int) : Fragment() {
         }
 
         fun update() {
-            val view = this.view!!
+            val view = view!!
             val runningTimer = lastRunningTimer
             if (runningTimer != null) {
                 val percentage = runningTimer.progress * 100
