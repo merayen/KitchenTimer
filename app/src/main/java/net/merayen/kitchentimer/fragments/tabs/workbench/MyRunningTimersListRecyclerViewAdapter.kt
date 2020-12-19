@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment.OnListFragmentInteractionListener
-import kotlinx.android.synthetic.main.fragment_running_timers_list.view.*
 import net.merayen.kitchentimer.livedata.RunningTimerWithTask
 import net.merayen.kitchentimer.utils.durationToString
 
@@ -73,10 +72,10 @@ class MyRunningTimersListRecyclerViewAdapter(
     override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mContentView: TextView = mView.content
-        val mTimeView: TextView = mView.time
-        val mProgressMarked: View = mView.progress_marked
-        val mProgressEmpty: View = mView.progress_empty
+        val mContentView: TextView = mView.findViewById<TextView>(R.id.content)
+        val mTimeView: TextView = mView.findViewById<TextView>(R.id.time)
+        val mProgressMarked: View = mView.findViewById<View>(R.id.progress_marked)
+        val mProgressEmpty: View = mView.findViewById<View>(R.id.progress_empty)
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

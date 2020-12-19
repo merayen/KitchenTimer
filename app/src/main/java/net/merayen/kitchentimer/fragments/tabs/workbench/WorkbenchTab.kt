@@ -97,7 +97,8 @@ class WorkbenchTab : Fragment() {
         val showRunningTimerId = showRunningTimerId
         if (showRunningTimerId != null) { // TODO move out in a separate method? Trigger it from item clicked on the left
             // TODO tissue:show_running_timer just do it
-            val frameLayout = view!!.findViewById<FrameLayout>(R.id.current_timer)
+                val view = requireView()
+            val frameLayout = view.findViewById<FrameLayout>(R.id.current_timer)
 
             val newFrame = RunningTimerFragment(showRunningTimerId)
 

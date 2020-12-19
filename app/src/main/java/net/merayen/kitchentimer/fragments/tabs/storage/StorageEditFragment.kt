@@ -27,7 +27,8 @@ class StorageEditFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.storage_edit_fragment, container, false)
 
-        val id = arguments!!["id"] as Int?
+        val arguments = requireArguments()
+        val id = arguments["id"] as Int?
         if (id != null) {
             viewModel.get(id).observe(viewLifecycleOwner, Observer {
                 view.findViewById<EditText>(R.id.name).setText(it.name)
