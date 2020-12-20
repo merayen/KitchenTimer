@@ -6,7 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 /**
- * A recipe is shown on the menu.
+ * A recipe is shown on the menu. (or should it be enabled...?)
+ *
  * @property id You know what this is
  * @property name Name of the recipe, shown in the title
  * @property description A longer description of what

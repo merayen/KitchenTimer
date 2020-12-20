@@ -1,4 +1,4 @@
-package net.merayen.kitchentimer.fragments.tabs.quicktimers
+package net.merayen.kitchentimer.fragments.tabs.kitchenlayout
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels

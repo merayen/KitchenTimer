@@ -11,15 +11,14 @@ import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import net.merayen.kitchentimer.R
 import net.merayen.kitchentimer.fragments.tabs.items.ItemSetupTab
-import net.merayen.kitchentimer.fragments.tabs.quicktimers.KitchenLayoutTab
-import net.merayen.kitchentimer.fragments.tabs.quicktimers.MenuTab
-import net.merayen.kitchentimer.fragments.tabs.quicktimers.OrderTab
+import net.merayen.kitchentimer.fragments.tabs.kitchenlayout.KitchenLayoutTab
+import net.merayen.kitchentimer.fragments.tabs.menu.MenuTab
+import net.merayen.kitchentimer.fragments.tabs.order.OrderTab
 import net.merayen.kitchentimer.fragments.tabs.quicktimers.QuickTimersTab
 import net.merayen.kitchentimer.fragments.tabs.recipes.RecipesTab
 import net.merayen.kitchentimer.fragments.tabs.storage.StorageTab
 import net.merayen.kitchentimer.fragments.tabs.workbench.RunningTimersListFragment
 import net.merayen.kitchentimer.fragments.tabs.workbench.WorkbenchTab
-import java.lang.RuntimeException
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
