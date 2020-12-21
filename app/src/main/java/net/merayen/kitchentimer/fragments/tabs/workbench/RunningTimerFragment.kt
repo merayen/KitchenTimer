@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 
 import net.merayen.kitchentimer.data.RunningTimer
+import net.merayen.kitchentimer.utils.durationToString
 import net.merayen.kitchentimer.viewmodels.RunningTimerViewModel
 
 class RunningTimerFragment(val runningTimerId: Int) : Fragment() {
@@ -42,8 +43,8 @@ class RunningTimerFragment(val runningTimerId: Int) : Fragment() {
 				val percentage = runningTimer.progress * 100
 
 				binding.name.text = "quick timer" // TODO use name from task
-				binding.remaining.text = formatDuration(runningTimer.remaining)
-				binding.total.text = formatDuration(runningTimer.seconds)
+				binding.remaining.text = durationToString(runningTimer.remaining)
+				binding.total.text = durationToString(runningTimer.seconds)
 				binding.progressMarked.layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.WRAP_CONTENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -64,6 +65,4 @@ class RunningTimerFragment(val runningTimerId: Int) : Fragment() {
 
 		return view
 	}
-
-	private fun formatDuration(seconds: Int) = "${seconds / 3600}h ${seconds / 60 % 60}m ${seconds % 60}s"
 }

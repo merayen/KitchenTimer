@@ -12,6 +12,7 @@ import android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import net.merayen.kitchentimer.R
+import net.merayen.kitchentimer.utils.durationToString
 import net.merayen.kitchentimer.viewmodels.QuickTimersTabViewModel
 import kotlin.math.max
 
@@ -105,7 +106,7 @@ class QuickTimersTab : Fragment() {
             something.height = 40 // TODO ugh, how to make this auto?
             something.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM)
             //something.setAutoSizeTextTypeUniformWithConfiguration(10, 100, 3, TypedValue.COMPLEX_UNIT_PX)
-            something.text = formatDuration(seconds)
+            something.text = durationToString(seconds)
             something.setOnClickListener {
                 viewModel.seconds = 0
                 offsetSeconds(seconds)
@@ -113,6 +114,4 @@ class QuickTimersTab : Fragment() {
             presets.addView(something)
         }
     }
-
-    private fun formatDuration(seconds: Int) = "${seconds / 3600}h ${seconds / 60 % 60}m"
 }
