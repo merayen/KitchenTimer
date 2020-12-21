@@ -23,109 +23,119 @@
 
 		</ScrollView>
 
-		<TableLayout
-			android:columnCount="3"
-			android:stretchColumns="*"
+		<LinearLayout
+			android:orientation="vertical"
 			android:layout_weight="1"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="match_parent">
 
-			<TableRow
+			<TableLayout
+				android:columnCount="3"
+				android:stretchColumns="*"
 				android:layout_weight="1"
-				android:layout_width="match_parent">
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
 
-				<Button
-					android:id="@+id/sub_hour"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_column="1"
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:text="-" />
+				<TableRow
+					android:layout_weight="1"
+					android:layout_width="match_parent">
 
-				<TextView
-					android:id="@+id/hours"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:textAlignment="center"
-					android:textSize="14pt"
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:gravity="center"
-					android:text="24h" />
+					<Button
+						android:id="@+id/sub_hour"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_column="1"
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:text="-" />
 
-				<Button
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:id="@+id/add_hour"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:text="+" />
+					<TextView
+						android:id="@+id/hours"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:textAlignment="center"
+						android:textSize="14pt"
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:gravity="center"
+						android:text="24h" />
 
-			</TableRow>
+					<Button
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:id="@+id/add_hour"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="+" />
 
-			<TableRow
-				android:layout_weight="1">
+				</TableRow>
 
-				<Button
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:id="@+id/sub_minutes"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:text="-5" />
+				<TableRow android:layout_weight="1">
 
-				<Button
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:id="@+id/sub_minute"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:text="-1" />
+					<Button
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:id="@+id/sub_minutes"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="-5" />
 
-				<TextView
-					android:id="@+id/minutes"
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:gravity="center"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:textAlignment="center"
-					android:textSize="14pt"
-					android:text="59m" />
+					<Button
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:id="@+id/sub_minute"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="-1" />
 
-				<Button
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:id="@+id/add_minute"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:text="+1" />
+					<TextView
+						android:id="@+id/minutes"
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:gravity="center"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:textAlignment="center"
+						android:textSize="14pt"
+						android:text="59m" />
 
-				<Button
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:id="@+id/add_minutes"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:text="+5" />
+					<Button
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:id="@+id/add_minute"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="+1" />
 
-			</TableRow>
+					<Button
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:id="@+id/add_minutes"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="+5" />
 
-			<TableRow
-				android:layout_weight="1">
+				</TableRow>
 
-				<Button
-					android:id="@+id/start"
-					android:autoSizeTextType="uniform"
-					android:maxLines="1"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_column="1"
-					android:layout_span="3"
-					android:text="Start" />
-			</TableRow>
-		</TableLayout>
+				<TableRow android:layout_weight="1">
+
+					<Button
+						android:id="@+id/start"
+						android:autoSizeTextType="uniform"
+						android:maxLines="1"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_column="1"
+						android:layout_span="3"
+						android:text="Start" />
+				</TableRow>
+			</TableLayout>
+
+			<View
+				android:layout_weight="1"
+				android:background="@color/black_overlay"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		</LinearLayout>
 	</LinearLayout>
-
 </FrameLayout>
