@@ -5,6 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import net.merayen.kitchentimer.AppDatabase
 import net.merayen.kitchentimer.repositories.LayoutRepository
 
-class KitchenLayoutTabViewModel(application: Application) : AndroidViewModel(application) {
-	val layoutBlockRepository = LayoutRepository(AppDatabase.getDatabase(application).layoutBlockDao())
+class LayoutViewModel(application: Application) : AndroidViewModel(application) {
+	val layoutRepository = LayoutRepository(AppDatabase.getDatabase(application).layoutBlockDao())
 }

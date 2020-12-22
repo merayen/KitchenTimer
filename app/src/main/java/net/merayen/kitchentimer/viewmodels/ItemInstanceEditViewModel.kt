@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.merayen.kitchentimer.AppDatabase
-import net.merayen.kitchentimer.data.Item
 import net.merayen.kitchentimer.data.ItemInstance
 import net.merayen.kitchentimer.repositories.ItemRepository
 
