@@ -101,30 +101,37 @@
 
 	</TableLayout>
 
-	<TableLayout
-		android:stretchColumns="*"
+	<LinearLayout
+		android:orientation="horizontal"
+		style="?android:attr/buttonBarStyle"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<TableRow>
-
 			<Button
 				android:id="@+id/reset"
-				android:layout_width="match_parent"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_weight="1"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="Reset" />
 
 			<Button
 				android:id="@+id/pause"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_weight="1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
 				android:text="Pause" />
 
 			<Button
 				android:id="@+id/done"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_weight="1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
 				android:text="Done" />
 
-		</TableRow>
-
-	</TableLayout>
+	</LinearLayout>
 
 	<View
 		android:layout_weight="1"

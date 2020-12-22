@@ -29,6 +29,12 @@
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent">
 
+			<View
+				android:layout_weight="1"
+				android:background="@color/black_overlay"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
 			<TableLayout
 				android:columnCount="3"
 				android:stretchColumns="*"
@@ -131,11 +137,6 @@
 				</TableRow>
 			</TableLayout>
 
-			<View
-				android:layout_weight="1"
-				android:background="@color/black_overlay"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" />
 		</LinearLayout>
 	</LinearLayout>
 </FrameLayout>
