@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import net.merayen.kitchentimer.databinding.KitchenLayoutTabFragmentBinding
 import net.merayen.kitchentimer.viewmodels.KitchenLayoutTabViewModel
 
+// TODO make the grid-part a separate fragment
 class KitchenLayoutTab : Fragment() {
 	private val viewModel by viewModels<KitchenLayoutTabViewModel>()
 
@@ -45,7 +46,7 @@ class KitchenLayoutTab : Fragment() {
 					TableRow.LayoutParams.MATCH_PARENT
 					//10,10
 				)
-				//text.text = "?"
+				(button.layoutParams as TableRow.LayoutParams).setMargins(1, 1, 1, 1)
 				button.setBackgroundColor(Color.WHITE)
 				button.setOnClickListener {
 					selectBlock(x, y)
@@ -76,7 +77,7 @@ class KitchenLayoutTab : Fragment() {
 	}
 
 	private fun update() {
-		for ((i,block) in iterateBlocks().withIndex()) {
+		for ((i, block) in iterateBlocks().withIndex()) {
 			block.setBackgroundColor(COLORS[items[i]])
 			block.text = ""
 		}
