@@ -22,7 +22,8 @@ import net.merayen.kitchentimer.data.ItemInstance
 		ItemInstanceLocation::class,
 		ItemTask::class,
 		Recipe::class,
-		Location::class
+		Location::class,
+		LayoutBlock::class,
 	],
 	version = 1,
 	exportSchema = false
@@ -115,6 +116,10 @@ abstract class AppDatabase : RoomDatabase() {
 						)
 					)
 
+					// Kitchen layout
+					db.layoutBlockDao().set((0 until 16 * 16).map { LayoutBlock(0, it, 0) })
+
+					// Running timers
 					db.runningTaskDao()
 						.save(RunningTimer(1, 1, "Koke poteter", start = System.currentTimeMillis() / 1000, seconds = 20 * 60))
 					db.runningTaskDao()
@@ -162,4 +167,5 @@ abstract class AppDatabase : RoomDatabase() {
 	abstract fun runningTaskDao(): RunningTimerDao
 	abstract fun recipeDao(): RecipeDao
 	abstract fun locationDao(): LocationDao
+	abstract fun layoutBlockDao(): LayoutBlockDao
 }
